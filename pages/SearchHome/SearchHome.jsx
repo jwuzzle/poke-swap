@@ -1,49 +1,27 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchHome = () => {
-    
-    const [name, setName] = useState("")
-    const [loading, setLoading] = useState(false)
-    const [pokeData, setPokeData] = useState([])
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-
-        try {
-            console.log("Name:", name)
-            setLoading(true);
-            const response = await axios.get(`http://localhost:9080/?name=${name}`);
-            console.log(response.data.data)
-            setPokeData(response.data.data)
-            setLoading(false);
-        } catch(error) {
-            console.error(error);
-        }
-    };
-
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    navigate(`/search/${searchValue.toLowerCase()}`);
+  };
 
   return (
     <section>
-        <form onSubmit={onSubmit}>
-            <input 
-                type="text" 
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                />
-                <button>SEARCH</button>
-        </form>
-        {loading ? ( 
-            <div>
-                <h2>Gathering the Pokemon...</h2>
-            </div>
-        ) : ("")}
-        {pokeData.map((card, index) => (
-            <img key={index} src={card.images.small} />
-        ))}
-
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          value={searchValue}
+          onChange={(event) => setSearchValue(event.target.value)}
+        />
+        <button type="submit">SEARCH</button>
+      </form>
     </section>
-  )
-}
+  );
+};
 
-export default SearchHome
+export default SearchHome;
