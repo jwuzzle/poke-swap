@@ -24,6 +24,9 @@ const SearchResults = () => {
         fetchPokeData();
     }, [name]);
 
+    const stringifiedPokeData = JSON.stringify(pokeData);
+    sessionStorage.setItem('pokedata object', stringifiedPokeData);
+
     return (
         <>
         {loading ? ( 
@@ -41,11 +44,14 @@ const SearchResults = () => {
             pokeData.map((card, index) => (
                     <Link 
                     className="card__link"
-                    to={`/search/${card.name.toLowerCase()}/${card.id}`}
-                    key={index} >
+                    key={index}
+                    to={{
+                        pathname: `/search/${card.name.toLowerCase()}/${card.id}`,
+                    }} >
                     <PokemonCard
+                    key={index}
                     image={card.images.small}
-                    name={card.name}
+                    cardname={card.name}
                     setname={card.set.name}
                     />
                     </Link>
