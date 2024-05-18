@@ -4,3 +4,67 @@
 @use "../styles/partials/mixins" as *;
 @use "../styles/partials/typography" as *;
 
+.search {
+
+    height: 75vh;
+        width: 200px;
+        height: 200px;
+        position: relative;
+        border: 2px solid transparent;
+        box-shadow: 0 0 0 2px #000;
+        animation: borderAnimation 4s linear infinite;
+
+
+    &__background {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__bar {
+        margin-bottom: 16px;
+    }
+
+    &__button {
+
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+    }
+}
+
+@keyframes borderAnimation {
+    0% {
+        border-color: red;
+        box-shadow: 0 0 0 2px red;
+    }
+
+    25% {
+        border-color: green;
+        box-shadow: 0 0 0 2px green;
+    }
+
+    50% {
+        border-color: blue;
+        box-shadow: 0 0 0 2px blue;
+    }
+
+    75% {
+        border-color: yellow;
+        box-shadow: 0 0 0 2px yellow;
+    }
+
+    100% {
+        border-color: purple;
+        box-shadow: 0 0 0 2px purple;
+    }
+}
