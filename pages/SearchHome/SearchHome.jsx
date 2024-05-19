@@ -13,7 +13,7 @@ const SearchHome = () => {
 
   return (
     <section className="search">
-      <div className="search__background">
+      <div className="search__box">
         <form className="search__form" onSubmit={onSubmit}>
           <input
             type="text"
