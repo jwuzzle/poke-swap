@@ -7,8 +7,8 @@ const NavigationBar = () => {
             <p className="navbar__logo">logo placeholder</p>
         </div>
         <ul className="navbar__menu">
-            <li classname="navbar__item">Log in</li>
-            <li classname="navbar__item">Sign up</li>
+            <li className="navbar__item">Log in</li>
+            <li className="navbar__item">Sign up</li>
         </ul>
         </nav>
   )

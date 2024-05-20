@@ -1,0 +1,30 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.preview {
+
+    &__title {
+
+    }
+
+
+    &__image-container {
+
+    }
+
+
+    &__image {
+        width: 300px;
+        height: 400px;
+    }
+
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+    }
+}
