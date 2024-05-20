@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SearchHome.scss";
 
 const SearchHome = () => {
   const navigate = useNavigate();
@@ -11,15 +12,20 @@ const SearchHome = () => {
   };
 
   return (
-    <section>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          value={searchValue}
-          onChange={(event) => setSearchValue(event.target.value)}
-        />
-        <button type="submit">SEARCH</button>
-      </form>
+    <section className="search">
+      <div className="search__box">
+        <form className="search__form" onSubmit={onSubmit}>
+          <input
+            type="text"
+            className="search__bar"
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
+          />
+          <button className="search__button" type="submit">
+            SEARCH
+          </button>
+        </form>
+      </div>
     </section>
   );
 };

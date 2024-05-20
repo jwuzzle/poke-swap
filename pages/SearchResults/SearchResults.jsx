@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PokemonCard from '../../components/PokemonCard/PokemonCard'
+import PokeballLoader from '../../components/PokeballLoader/PokeballLoader';
 
 const SearchResults = () => {
     let { name } = useParams();
@@ -31,7 +32,8 @@ const SearchResults = () => {
         <>
         {loading ? ( 
                 <div>
-                    <h2>Gathering the Pokemon...</h2>
+                    <p>Gotta catch 'em all</p>
+                    <PokeballLoader />
                 </div>
             ) : (
                 <div>
