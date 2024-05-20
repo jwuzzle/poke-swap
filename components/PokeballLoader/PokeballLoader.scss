@@ -1,0 +1,52 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.pokeball {
+    height: 40px;
+    width: 40px;
+    border: 2.75px solid $black;
+    border-radius: 50%;
+    background-image: linear-gradient(
+            #f51939 20px,
+            white 20px
+    );
+    position: relative;
+    animation: load 1s ease-in-out infinite alternate;
+}
+@keyframes load {
+    from{
+        transform: rotate(-25deg) scale(0.7);
+    }
+    to {
+        transform: rotate(25deg) scale(0.7);
+      }
+}
+
+.pokeball:before {
+    position: absolute;
+    content: "";
+    height: 2.75px;
+    width: 40px;
+    background-color: $black;
+    top: 19px;
+}
+
+.pokeball:after {
+    position: absolute;
+    content: "";
+    height: 11.25px;
+    width: 11.25px;
+    background-image: radial-gradient(
+        #ffffff 0px,#ffffff 2.5px,
+        $black 1.75px, $black 3.75px,
+        #ffffff 3.75px, #ffffff 8px,
+        $black 8px,
+    );
+    border-radius: 50%;
+    border: 2px solid $black;
+    top: 13px;
+    left: 12.5px;
+}
