@@ -7,6 +7,8 @@ import PokeballLoader from "../components/PokeballLoader/PokeballLoader";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import PhotoUpload from "../components/PhotoUpload/PhotoUpload";
 import CreateCardPostPage from "../pages/CreateCardPostPage/CreateCardPostPage";
+import CreateAccountPage from "../pages/SignUpPages/CreateAccountPage/CreateAccountPage";
+import CollectDemographicsPage from "../pages/SignUpPages/CollectAddressPage/CollectDemographicsPage";
 
 function App() {
 
@@ -20,6 +22,9 @@ function App() {
         <Route path="/search/:name/:id" element={<PokemonCardDetails />} />
         <Route path="/loader" element={<PokeballLoader />} />
         <Route path="/search/:name/:id/upload" element={<CreateCardPostPage />} />
+        <Route path="/register/step1" element={<CreateAccountPage />} />
+        <Route path="/register/step2" element={<CollectDemographicsPage />} />
+        <Route path="/home" element={<SearchHome />} />
         </Routes>
       </BrowserRouter>
     </>

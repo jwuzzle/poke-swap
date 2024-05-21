@@ -4,7 +4,7 @@ const Quantity = () => {
   return (
     <>
     <label htmlFor="trade_quantity">Quantity for Trade:</label>
-    <input type="integer" id="contrade_quantitydition" name="trade_quantity" />
+    <input type="integer" id="trade_quantity" name="trade_quantity" />
     </>
     )
 }
