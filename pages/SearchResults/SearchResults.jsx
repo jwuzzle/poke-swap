@@ -44,9 +44,9 @@ const SearchResults = () => {
 {loading ? (""
             ) : (
             pokeData.map((card, index) => (
+                <div key={index}>
                     <Link 
                     className="card__link"
-                    key={index}
                     to={{
                         pathname: `/search/${card.name.toLowerCase()}/${card.id}`,
                     }} >
@@ -57,6 +57,7 @@ const SearchResults = () => {
                     setname={card.set.name}
                     />
                     </Link>
+                    </div>
                 ))
             )}
         </>
