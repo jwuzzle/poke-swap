@@ -6,6 +6,7 @@ import PokemonCardAttacksDetails from "../../components/PokemonCardDetails/Pokem
 import PokemonCardWeaknessDetails from "../../components/PokemonCardDetails/PokemonCardWeaknessDetails";
 import PokemonCardImage from "../../components/PokemonCardDetails/PokemonCardImage";
 import PokemonCardPricing from "../../components/PokemonCardDetails/PokemonCardPricing";
+import CardListings from "../../components/CardListings/CardListings";
 
 const PokemonCardDetails = () => {
   const { id } = useParams();
@@ -66,6 +67,7 @@ const PokemonCardDetails = () => {
         weaknesstype={weak.type}
         weaknessvalue={weak.value} />))) : ("")}
         <PokemonCardPricing />
+        <CardListings />
     </>
   );
 };
