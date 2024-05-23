@@ -7,6 +7,7 @@ import PokemonCardAttacksDetails from "../../components/PokemonCardDetails/Pokem
 import PokemonCardWeaknessDetails from "../../components/PokemonCardDetails/PokemonCardWeaknessDetails";
 import PokemonCardImage from "../../components/PokemonCardDetails/PokemonCardImage";
 import PokemonCardPricing from "../../components/PokemonCardDetails/PokemonCardPricing";
+import CardListings from "../../components/CardListings/CardListings";
 import axios from "axios";
 import ListingButton from "../../components/Buttons/ListingButton/ListingButton";
 
@@ -136,6 +137,7 @@ const PokemonCardDetails = () => {
           ))
         : ""}
       <PokemonCardPricing />
+        <CardListings />
     </>
   );
 };
