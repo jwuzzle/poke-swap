@@ -1,28 +1,50 @@
 import "./CreateCardPostPage.scss";
 import PhotoUpload from "../../components/PhotoUpload/PhotoUpload";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import PhotoPreview from "../../components/PhotoPreview/PhotoPreview";
 import Condition from "../../components/FormFields/Condition/Condition";
 import Quantity from "../../components/FormFields/Quantity/Quantity";
+import { jwtDecode } from "jwt-decode";
+
+const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
 const CreateCardPostPage = () => {
-  const { name, id } = useParams();
+  const { id, name } = useParams();
+  const navigate = useNavigate();
 
-  /* const pokeDataObjectFromStorage = sessionStorage.getItem("pokedata object");
-    const pokeDataObjectParsed = JSON.parse(pokeDataObjectFromStorage);
-  
-    console.log(pokeDataObjectParsed);
-  
-    const filteredPokeDataObject = pokeDataObjectParsed.filter(
-      (poke) => poke.id === id
-    ); */
+  const getcardsURL = `${baseURL}/cards/${id}`;
 
   const capitalizeString = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
   const capitalizedName = capitalizeString(name);
+
+  const [cardId, setCardId] = useState("");
+  useEffect(() => {
+    const getCardDbDetails = async () => {
+      try {
+        const response = await axios.get(getcardsURL);
+        console.log("Response status:", response.status);
+        console.log(response.data);
+        console.log(response.data.card[0].id);
+        setCardId(response.data.card[0].id);
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          console.error("Error occurred:", error);
+        }
+      }
+    };
+    getCardDbDetails();
+  }, []);
+
+  const token = sessionStorage.getItem("JWTtoken");
+  let decoded = null;
+  if (token) {
+    decoded=jwtDecode(token);
+    console.log(decoded);
+  }
 
   const [preview, setPreview] = useState();
   const [mediaFile, setMediaFile] = useState();
@@ -32,14 +54,14 @@ const CreateCardPostPage = () => {
     setPreview(URL.createObjectURL(event.target.files[0]));
   };
 
-  const cloud_name= import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
   const preset_key = import.meta.env.VITE_CLOUDINARY_PRESET;
   const [image, setImage] = useState();
 
   const uploadMedia = async () => {
     try {
       const url = `http://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
-      console.log(url)
+      console.log(url);
       try {
         const formData = new FormData();
         formData.append("file", mediaFile);
@@ -50,31 +72,52 @@ const CreateCardPostPage = () => {
         return "No file attached";
       }
     } catch (error) {
-      console.error(error);
+      console.error("did not send to cloudinary.");
     }
   };
 
-  /* const submitCardPost = () => {
+  const postCardURL = `${baseURL}/posts/${cardId}`;
+  const [quantity, setQuantity] = useState('');
 
-  } */
-
-  const testUpload = async () => {
+  const testUpload = async (event) => {
+    event.preventDefault();
     const result = await uploadMedia();
     setImage(result);
+
+    try {
+      const response = await axios.post(postCardURL, {
+        user_id: decoded.id,
+        card_id: cardId,
+        status: "available",
+        condition: event.target.condition.value,
+        quantity: quantity,
+        image_url: result,
+      });
+      console.log(response);
+      console.log("Response from server after post:", response.data);
+    } catch (errror) {
+      ("Something went wrong. Please try again."
+      );
+    }
+    /* navigate("/home"); */
   };
-
-
 
   return (
     <section>
       <h1>{capitalizedName}</h1>
       {/* <p>{filteredPokeDataObject[0].set.name}</p> */}
-      <Condition />
-      <Quantity />
-      <PhotoUpload update={handleMediaChange} />
-      {preview && <PhotoPreview preview={preview} />}
-      <button onClick={testUpload}>Submit</button>
-      {image && <p>Upload Result: {image}</p>}
+      <form onSubmit={testUpload}>
+        <Condition />
+        <Quantity 
+        quantity={quantity}
+     update={(event) => setQuantity(event.target.value)}
+        />
+        <PhotoUpload update={handleMediaChange} />
+        {preview && <PhotoPreview preview={preview} />}
+        <button>Submit</button>
+        {image && <p>Upload Result</p>}
+        <img src={image} />
+      </form>
     </section>
   );
 };

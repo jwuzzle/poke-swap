@@ -8,7 +8,7 @@ const Condition = () => {
     <label htmlFor="condition">Card Condition</label>
     <select id="condition" name="condition">
         {cardConditions.map((condition, index) =>( 
-            <option key={index}>{condition}</option>
+            <option key={index} value={condition}>{condition}</option>
         ))}
     </select>
     </>
