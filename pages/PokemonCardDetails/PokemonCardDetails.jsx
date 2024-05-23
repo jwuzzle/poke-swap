@@ -1,6 +1,6 @@
 import React from "react";
 import PokemonCardDetailsComp from "../../components/PokemonCardDetails/PokemonCardDetailsComp";
-import { useLinkClickHandler, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PokemonCardAbilitiesDetails from "../../components/PokemonCardDetails/PokemonCardAbilitiesDetails";
 import PokemonCardAttacksDetails from "../../components/PokemonCardDetails/PokemonCardAttacksDetails";
@@ -8,9 +8,10 @@ import PokemonCardWeaknessDetails from "../../components/PokemonCardDetails/Poke
 import PokemonCardImage from "../../components/PokemonCardDetails/PokemonCardImage";
 import PokemonCardPricing from "../../components/PokemonCardDetails/PokemonCardPricing";
 import axios from "axios";
+import ListingButton from "../../components/Buttons/ListingButton/ListingButton";
 
 const PokemonCardDetails = () => {
-  const { id } = useParams();
+  const { id, name } = useParams();
   const pokeDataObjectFromStorage = sessionStorage.getItem("pokedata object");
   const pokeDataObjectParsed = JSON.parse(pokeDataObjectFromStorage);
 
@@ -82,6 +83,11 @@ const PokemonCardDetails = () => {
   return (
     <>
       <div></div>
+      <ListingButton 
+      type="button"
+      button_label="Create Trade Listing"
+      destination={`/search/${name}/${id}/upload`}
+      />
       <PokemonCardImage
         image={filteredPokeDataObject[0].images.small}
         cardname={filteredPokeDataObject[0].name}
