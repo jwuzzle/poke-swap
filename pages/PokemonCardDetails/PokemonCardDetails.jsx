@@ -84,10 +84,10 @@ const PokemonCardDetails = () => {
   return (
     <>
       <div></div>
-      <ListingButton 
-      type="button"
-      button_label="Create Trade Listing"
-      destination={`/search/${name}/${id}/upload`}
+      <ListingButton
+        type="button"
+        button_label="Create Trade Listing"
+        destination={`/search/${name}/${id}/upload`}
       />
       <PokemonCardImage
         image={filteredPokeDataObject[0].images.small}
@@ -137,7 +137,7 @@ const PokemonCardDetails = () => {
           ))
         : ""}
       <PokemonCardPricing />
-        <CardListings />
+      <CardListings />
     </>
   );
 };
