@@ -54,12 +54,14 @@ const getCardPostsURL = `${baseURL}/posts?cardId=${cardId}`
 
   console.log(cardPosts)
 
-  console.log(cardPosts.cards[0].image_url)
+  /* console.log(cardPosts.cards[0].image_url) */
 
   return (
     <section>
       <h3>Trade Listings</h3>
-      <img src={cardPosts.cards[0].image_url} />
+      {cardPosts.cards && cardPosts.cards.length > 0 ? (
+  <img src={cardPosts.cards[0].image_url} alt="Card" />
+) : null}
     </section>
   );
 };
