@@ -1,8 +1,8 @@
-import PokemonCardAbilitiesDetails from "../PokemonCardDetails/PokemonCardAbilitiesDetails";
 import "./CardListings.scss";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Cards from "./Cards/Cards";
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
@@ -59,9 +59,16 @@ const getCardPostsURL = `${baseURL}/posts?cardId=${cardId}`
   return (
     <section>
       <h3>Trade Listings</h3>
+      
       {cardPosts.cards && cardPosts.cards.length > 0 ? (
-  <img src={cardPosts.cards[0].image_url} alt="Card" />
-) : null}
+        cardPosts.cards.map((card, index) => (
+          <Cards 
+          key={index}
+          image={card.image_url}
+          condition={card.condition}
+          status={card.status.toUpperCase()}
+          username={card.username} />
+        ) ) ) : (null) }
     </section>
   );
 };
