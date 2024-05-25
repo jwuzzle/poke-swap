@@ -22,6 +22,8 @@ const PokemonCardDetails = () => {
     (poke) => poke.id === id
   );
 
+  console.log(filteredPokeDataObject)
+
   const baseURL = import.meta.env.VITE_APP_BASE_URL;
   const getcardsURL = `${baseURL}/cards/${id}`;
   const postcardsURL = `${baseURL}/cards/details`;

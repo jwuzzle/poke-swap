@@ -10,6 +10,7 @@ import CreateCardPostPage from "../pages/CreateCardPostPage/CreateCardPostPage";
 import CreateAccountPage from "../pages/SignUpPages/CreateAccountPage/CreateAccountPage";
 import CollectDemographicsPage from "../pages/SignUpPages/CollectAddressPage/CollectDemographicsPage";
 import UserCardCollection from "../pages/UserCardCollectionPage/UserCardCollectionPage";
+import CardPostDetailsPage from "../pages/CardPostDetailsPage/CardPostDetailsPage";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/search/:name/:id" element={<PokemonCardDetails />} />
         <Route path="/loader" element={<PokeballLoader />} />
         <Route path="/search/:name/:id/upload" element={<CreateCardPostPage />} />
+        <Route path="/search/:name/:id/listing/:postid" element={<CardPostDetailsPage />} />
         <Route path="/register/step1" element={<CreateAccountPage />} />
         <Route path="/register/step2" element={<CollectDemographicsPage />} />
         <Route path="/home" element={<SearchHome />} />
