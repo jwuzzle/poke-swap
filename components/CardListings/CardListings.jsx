@@ -1,6 +1,6 @@
 import "./CardListings.scss";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cards from "./Cards/Cards";
 
@@ -56,21 +56,30 @@ const getCardPostsURL = `${baseURL}/posts?cardId=${cardId}`
 
   /* console.log(cardPosts.cards[0].image_url) */
 
+  const stringifiedPostData = JSON.stringify(cardPosts);
+    sessionStorage.setItem('posts object', stringifiedPostData);
+
   return (
     <section>
       <h3>Trade Listings</h3>
       
       {cardPosts.cards && cardPosts.cards.length > 0 ? (
         cardPosts.cards.map((card, index) => (
+         <Link key={index} className="cardpost__link"
+          to={{
+              pathname: `/search/${card.name.toLowerCase()}/${card.api_card_id}/listing/${card.id}`,
+          }} >
           <Cards 
           key={index}
           image={card.image_url}
           condition={card.condition}
           status={card.status.toUpperCase()}
-          username={card.username} />
+          username={card.username} /></Link>
         ) ) ) : (null) }
     </section>
   );
 };
+
+
 
 export default CardListings;

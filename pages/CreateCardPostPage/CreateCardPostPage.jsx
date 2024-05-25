@@ -46,13 +46,23 @@ const CreateCardPostPage = () => {
     console.log(decoded);
   }
 
-  const [preview, setPreview] = useState();
-  const [mediaFile, setMediaFile] = useState();
+  const [preview, setPreview] = useState([]);
+  const [mediaFile, setMediaFile] = useState([]);
 
   const handleMediaChange = (event) => {
-    setMediaFile(event.target.files[0]);
-    setPreview(URL.createObjectURL(event.target.files[0]));
+    const newFile = event.target.files;
+    const updatedMediaFiles = [...mediaFile];
+
+    for (let i=0; i < newFile.length; i++) {
+      updatedMediaFiles.push(newFile[i]);
+      preview.push(URL.createObjectURL(newFile[i]));
+    }
+
+    setMediaFile(updatedMediaFiles); 
   };
+
+  console.log(mediaFile)
+  console.log(preview)
 
   const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
   const preset_key = import.meta.env.VITE_CLOUDINARY_PRESET;
@@ -113,7 +123,11 @@ const CreateCardPostPage = () => {
      update={(event) => setQuantity(event.target.value)}
         />
         <PhotoUpload update={handleMediaChange} />
-        {preview && <PhotoPreview preview={preview} />}
+        {/* listing photo and preview */}
+        {!preview ? "" : <PhotoPreview preview={preview} />}
+       {/*  {mediaFile.map((mediaFile) => (
+          <p>{mediaFile.name}</p> //trying to create the ability to add multiple uploades in one post 
+        ))} */}
         <button>Submit</button>
         {image && <p>Upload Result</p>}
         <img src={image} />
