@@ -9,6 +9,7 @@ import PhotoUpload from "../components/PhotoUpload/PhotoUpload";
 import CreateCardPostPage from "../pages/CreateCardPostPage/CreateCardPostPage";
 import CreateAccountPage from "../pages/SignUpPages/CreateAccountPage/CreateAccountPage";
 import CollectDemographicsPage from "../pages/SignUpPages/CollectAddressPage/CollectDemographicsPage";
+import UserCardCollection from "../pages/UserCardCollectionPage/UserCardCollectionPage";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/register/step1" element={<CreateAccountPage />} />
         <Route path="/register/step2" element={<CollectDemographicsPage />} />
         <Route path="/home" element={<SearchHome />} />
+        <Route path="/collection" element={<UserCardCollection />} />
         </Routes>
       </BrowserRouter>
     </>
