@@ -8,6 +8,7 @@ import NavigationBar from "../components/NavigationBar/NavigationBar";
 import CreateCardPostPage from "../pages/CreateCardPostPage/CreateCardPostPage";
 import CreateAccountPage from "../pages/SignUpPages/CreateAccountPage/CreateAccountPage";
 import CollectDemographicsPage from "../pages/SignUpPages/CollectAddressPage/CollectDemographicsPage";
+import UserCardCollection from "../pages/UserCardCollectionPage/UserCardCollectionPage";
 import CardPostDetailsPage from "../pages/CardPostDetailsPage/CardPostDetailsPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/register/step2" element={<CollectDemographicsPage />} />
         <Route path="/home" element={<SearchHome />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/collection" element={<UserCardCollection />} />
         </Routes>
       </BrowserRouter>
     </>
