@@ -3,3 +3,31 @@
 @use "../styles/partials/variables" as *;
 @use "../styles/partials/mixins" as *;
 @use "../styles/partials/typography" as *;
+
+
+.login {
+
+    &__container--login {
+
+    }
+
+    &__input {
+
+    }
+
+    &__label {
+
+    }
+
+    &__buttons {
+
+        &--submit {
+            color: pink;
+        }
+
+        &--cancel {
+            color: purple;
+        }
+
+    }
+}

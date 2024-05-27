@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./LoginPage.scss";
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 const loginURL = `${baseURL}/login`;
@@ -35,7 +36,7 @@ const LoginPage = () => {
   };
 
   return (
-    <section>
+    <section className="login">
       <form className="login__container--login" onSubmit={handleLogin}>
         <div className="login__input">
           <label className="login__label">Username</label>
@@ -46,10 +47,10 @@ const LoginPage = () => {
           <input type="password" name="password" />
         </div>
         <div className="login__buttons">
-          <button type="submit" className="login__button">
+          <button type="submit" className="login__buttons--submit">
             Log in
           </button>
-          <button type="cancel" className="login__cancel">
+          <button type="cancel" className="login__buttons--cancel">
             Cancel
           </button>
         </div>
