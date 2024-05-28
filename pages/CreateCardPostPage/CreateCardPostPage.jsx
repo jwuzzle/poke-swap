@@ -46,35 +46,60 @@ const CreateCardPostPage = () => {
     console.log(decoded);
   }
 
-  const [preview, setPreview] = useState([]);
-  const [mediaFile, setMediaFile] = useState([]);
+  const [frontPreview, setFrontPreview] = useState([]);
+  const [backPreview, setBackPreview] = useState([]);
+  const [mediaFileFront, setMediaFileFront] = useState([]);
+  const [mediaFileBack, setMediaFileBack] = useState([]);
 
-  const handleMediaChange = (event) => {
-    const newFile = event.target.files;
-    const updatedMediaFiles = [...mediaFile];
-
-    for (let i=0; i < newFile.length; i++) {
-      updatedMediaFiles.push(newFile[i]);
-      preview.push(URL.createObjectURL(newFile[i]));
-    }
-
-    setMediaFile(updatedMediaFiles); 
+  const handleMediaChangeFront = (event) => {
+   const file = event.target.files[0]
+    setMediaFileFront(file);
+    setFrontPreview((prevPreviews) => [...prevPreviews, URL.createObjectURL(file)]);
   };
 
-  console.log(mediaFile)
-  console.log(preview)
+  const handleMediaChangeBack = (event) => {
+    const file = event.target.files[0]
+    setMediaFileBack(file);
+     setBackPreview((prevPreviews) => [...prevPreviews, URL.createObjectURL(file)]);
+   };
+
+  console.log(mediaFileFront)
+  console.log(frontPreview)
+  console.log(mediaFileBack)
+  console.log(backPreview)
+
 
   const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
   const preset_key = import.meta.env.VITE_CLOUDINARY_PRESET;
-  const [image, setImage] = useState();
 
-  const uploadMedia = async () => {
+  const [frontImage, setFrontImage] = useState();
+  const [backImage, setBackImage] = useState();
+
+  const uploadMediaFront = async () => {
     try {
-      const url = `http://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
+      const url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
       console.log(url);
       try {
         const formData = new FormData();
-        formData.append("file", mediaFile);
+        formData.append("file", mediaFileFront); 
+        formData.append("upload_preset", preset_key);
+        const response = await axios.post(url, formData);
+        return response.data.secure_url;
+      } catch (error) {
+        return "No file attached";
+      }
+    } catch (error) {
+      console.error("did not send to cloudinary.");
+    }
+  };
+
+  const uploadMediaBack = async () => {
+    try {
+      const url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
+      console.log(url);
+      try {
+        const formData = new FormData();
+        formData.append("file", mediaFileBack);
         formData.append("upload_preset", preset_key);
         const response = await axios.post(url, formData);
         return response.data.secure_url;
@@ -91,8 +116,10 @@ const CreateCardPostPage = () => {
 
   const testUpload = async (event) => {
     event.preventDefault();
-    const result = await uploadMedia();
-    setImage(result);
+    const resultFront = await uploadMediaFront();
+    const resultBack = await uploadMediaBack();
+    setFrontImage(resultFront);
+    setBackImage(resultBack);
 
     try {
       const response = await axios.post(postCardURL, {
@@ -101,7 +128,8 @@ const CreateCardPostPage = () => {
         status: "available",
         condition: event.target.condition.value,
         quantity: quantity,
-        image_url: result,
+        front_image_url: resultFront,
+        back_image_url: resultBack,
       });
       console.log(response);
       console.log("Response from server after post:", response.data);
@@ -122,15 +150,18 @@ const CreateCardPostPage = () => {
         quantity={quantity}
      update={(event) => setQuantity(event.target.value)}
         />
-        <PhotoUpload update={handleMediaChange} />
+        <PhotoUpload update={handleMediaChangeFront} />
+        <PhotoUpload update={handleMediaChangeBack} />
         {/* listing photo and preview */}
-        {!preview ? "" : <PhotoPreview preview={preview} />}
+        {!frontPreview ? "" : <PhotoPreview preview={frontPreview} />}
+        {!backPreview ? "" : <PhotoPreview preview={backPreview} />}
        {/*  {mediaFile.map((mediaFile) => (
           <p>{mediaFile.name}</p> //trying to create the ability to add multiple uploades in one post 
         ))} */}
         <button>Submit</button>
-        {image && <p>Upload Result</p>}
-        <img src={image} />
+        {frontImage && backImage && <p>Upload Result</p>}
+        <img src={frontImage} />
+        <img src={backImage} />
       </form>
     </section>
   );
