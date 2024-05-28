@@ -143,7 +143,6 @@ const CreateCardPostPage = () => {
   return (
     <section>
       <h1>{capitalizedName}</h1>
-      {/* <p>{filteredPokeDataObject[0].set.name}</p> */}
       <form onSubmit={testUpload}>
         <Condition />
         <Quantity 
@@ -152,16 +151,12 @@ const CreateCardPostPage = () => {
         />
         <PhotoUpload update={handleMediaChangeFront} />
         <PhotoUpload update={handleMediaChangeBack} />
-        {/* listing photo and preview */}
-        {!frontPreview ? "" : <PhotoPreview preview={frontPreview} />}
-        {!backPreview ? "" : <PhotoPreview preview={backPreview} />}
-       {/*  {mediaFile.map((mediaFile) => (
-          <p>{mediaFile.name}</p> //trying to create the ability to add multiple uploades in one post 
-        ))} */}
+        {frontPreview && (<PhotoPreview preview={frontPreview} />)}
+        {backPreview && (<PhotoPreview preview={backPreview} />)}
         <button>Submit</button>
-        {frontImage && backImage && <p>Upload Result</p>}
+        {frontImage && <p>Upload Result</p>}
         <img src={frontImage} />
-        <img src={backImage} />
+       {backImage !== "No file attached" && (<img src={backImage} />)}
       </form>
     </section>
   );

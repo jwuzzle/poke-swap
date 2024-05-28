@@ -23,8 +23,8 @@ const CardPostDetailsPage = () => {
       CardPostDetailsPage
       <p>Front:</p>
       <img className="image" src={filteredPostDataObject[0].front_image_url} />
-      <p>Back:</p>
-      <img className="image"  src={filteredPostDataObject[0].back_image_url} />
+       {filteredPostDataObject[0].back_image_url !== "No file attached" && (<><p>Back:</p>
+      <img className="image"  src={filteredPostDataObject[0].back_image_url} /></>) }
       <p>{filteredPostDataObject[0].name}</p>
       <p>{filteredPostDataObject[0].username}</p>
       <p>{filteredPostDataObject[0].condition}</p>
