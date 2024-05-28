@@ -11,6 +11,7 @@ import CollectDemographicsPage from "../pages/SignUpPages/CollectAddressPage/Col
 import UserCardCollection from "../pages/UserCardCollectionPage/UserCardCollectionPage";
 import CardPostDetailsPage from "../pages/CardPostDetailsPage/CardPostDetailsPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import OtherUsersCardCollectionPage from "../pages/OtherUsersCardCollectionPage/OtherUsersCardCollectionPage";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/home" element={<SearchHome />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/collection" element={<UserCardCollection />} />
+        <Route path="/collection/:userid" element={<OtherUsersCardCollectionPage />} />
         </Routes>
       </BrowserRouter>
     </>

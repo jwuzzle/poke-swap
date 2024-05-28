@@ -49,7 +49,7 @@ const SearchResults = () => {
                     className="card__link"
                     to={{
                         pathname: `/search/${card.name.toLowerCase()}/${card.id}`,
-                    }} >
+                    }} >      
                     <PokemonCard
                     key={index}
                     image={card.images.small}
