@@ -46,7 +46,7 @@ const UserCardCollection = () => {
       {userCards.map((userCard, index) => (
         <PokemonCard 
         key={index}
-        image={userCard.image_url}
+        image={userCard.front_image_url}
         cardname={userCard.name}
         setname={userCard.set}
         />

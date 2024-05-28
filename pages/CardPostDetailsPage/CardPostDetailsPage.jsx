@@ -1,5 +1,6 @@
 import "./CardPostDetailsPage.scss";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from 'react-router-dom';
+
 
 const CardPostDetailsPage = () => {
   const { postid } = useParams();
@@ -26,7 +27,12 @@ const CardPostDetailsPage = () => {
        {filteredPostDataObject[0].back_image_url !== "No file attached" && (<><p>Back:</p>
       <img className="image"  src={filteredPostDataObject[0].back_image_url} /></>) }
       <p>{filteredPostDataObject[0].name}</p>
-      <p>{filteredPostDataObject[0].username}</p>
+      <p>{filteredPostDataObject[0].username}</p> 
+      <Link 
+                    className="card__link"
+                    to={{
+                        pathname: `/collection/${filteredPostDataObject[0].user_id}`,
+                    }} >See User's Collection</Link>
       <p>{filteredPostDataObject[0].condition}</p>
       <p>{filteredPostDataObject[0].status.toUpperCase()}</p>
       <p>Placeholder for link to see Dash's other cards for trade</p>
