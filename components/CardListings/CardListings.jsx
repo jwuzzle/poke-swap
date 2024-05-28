@@ -71,7 +71,8 @@ const getCardPostsURL = `${baseURL}/posts?cardId=${cardId}`
           }} >
           <Cards 
           key={index}
-          image={card.image_url}
+          frontimage={card.front_image_url}
+          backimage={card.back_image_url}
           condition={card.condition}
           status={card.status.toUpperCase()}
           username={card.username} /></Link>
