@@ -1,0 +1,23 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.details-logo {
+
+    &__image {
+        width: 100px;
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+
+        &__image {
+            width: 200px;
+        }
+
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {}
+
+}

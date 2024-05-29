@@ -1,0 +1,22 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.attacks {
+
+    border-radius: 5px;
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+        rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    margin-bottom: 16px;
+
+        &__label {
+        @include subheader-mobile;
+    }
+
+    &__copy {
+        @include body-copy-mobile;
+    }
+}

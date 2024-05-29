@@ -3,7 +3,9 @@ import './PokeballLoader.scss'
 
 const PokeballLoader = () => {
   return (
-    <div className="pokeball"></div>
+    <div className="loader">
+      <p>Gotta catch 'em all</p>
+      <div className="pokeball"></div></div>
   )
 }
 

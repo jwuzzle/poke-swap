@@ -1,0 +1,33 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.pricing {
+    
+
+    &__header {
+        @include section-header-mobile;
+    }
+
+    &__dropdown {
+        @include body-copy-mobile;
+    }
+
+    &__price-data {
+        border-radius: 5px;
+        margin-top: 16px;
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+        rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    }
+
+    &__label {
+        @include subheader-mobile;
+    }
+
+    &__amount {
+        @include body-copy-mobile;
+    }
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import "./PokemonCardPricing.scss";
 
 const PokemonCardPricing = (props) => {
   const { id } = useParams();
@@ -35,9 +36,10 @@ const PokemonCardPricing = (props) => {
   };
 
   return (
-    <div>
-      <h1>Pricing:</h1> <label htmlFor="price-select"></label>
-      <select
+    <div className="pricing">
+      <h1 className="pricing__header">Pricing: {/* <label htmlFor="price-select"></label> */}
+   <select
+        className="pricing__dropdown"
         name="price"
         id="price-select"
         onChange={(event) => handleFoilSelect(event)}
@@ -47,14 +49,14 @@ const PokemonCardPricing = (props) => {
             {pricetype[0]}
           </option>
         ))}
-      </select>
-      <div>
+      </select> </h1>
+      <div className="pricing__price-data">
         {pricingDetails.map((pricetype, index) => (
           <div key={index}>
-            <p>Market Price: ${pricetype.market}</p>
-            <p>Low Price: ${pricetype.low}</p>
-            <p>Mid Price: ${pricetype.mid}</p>
-            <p>High Price: ${pricetype.high}</p>
+            <p className="pricing__label">Market Price: <span className="pricing__amount">${pricetype.market}</span></p>
+            <p className="pricing__label">Low Price: <span className="pricing__amount">${pricetype.low}</span></p>
+            <p className="pricing__label">Mid Price: <span className="pricing__amount">${pricetype.mid}</span></p>
+            <p className="pricing__label">High Price: <span className="pricing__amount">${pricetype.high}</span></p>
           </div>
         ))}
       </div>

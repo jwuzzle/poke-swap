@@ -1,0 +1,74 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.pokemon_card {
+    position: relative;
+    padding: 16px;
+    width: 144px;
+    height: 222px;
+
+    &__front {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+
+    &__image {
+        opacity: 0.9;
+        transition: opacity .2s ease-out;
+        width: 200px;
+        height: 275px;
+    }
+
+    &__hover {
+        position: absolute;
+        opacity: 0;
+        max-width: 80%;
+        transition: opacity .3s ease-out;
+        inset: 100px 50px;
+        line-height: none; 
+    }
+
+    &__name {
+        color: black;
+    }
+
+    &__set {
+        color: black;
+    }
+
+    &:hover {
+        h2 {
+            opacity: 1;
+            transition: opacity .5s .1s ease-in;
+        }
+
+        p {
+            opacity: 1;
+            transition: opacity .5s .1s ease-in;
+        }
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+    }
+
+}
+
+
+.pokemon_card__hover:hover {
+    opacity: 1;
+    transition: opacity .5s .1s ease-in;
+}
+
+.pokemon_card:hover {
+    opacity: 0.8;
+    transition: opacity .5s .1s ease-in;
+}

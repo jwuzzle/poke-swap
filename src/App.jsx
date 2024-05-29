@@ -32,6 +32,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/collection" element={<UserCardCollection />} />
         <Route path="/collection/:userid" element={<OtherUsersCardCollectionPage />} />
+
         </Routes>
       </BrowserRouter>
     </>

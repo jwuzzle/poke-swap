@@ -60,9 +60,7 @@ const getCardPostsURL = `${baseURL}/posts?cardId=${cardId}`
     sessionStorage.setItem('posts object', stringifiedPostData);
 
   return (
-    <section>
-      <h3>Trade Listings</h3>
-      
+    <section className="cardpost">
       {cardPosts.cards && cardPosts.cards.length > 0 ? (
         cardPosts.cards.map((card, index) => (
          <Link key={index} className="cardpost__link"

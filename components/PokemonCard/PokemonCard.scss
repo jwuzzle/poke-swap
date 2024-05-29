@@ -5,69 +5,53 @@
 @use "../styles/partials/typography" as *;
 
 .pokemon_card {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px 5px rgba(115, 61, 61, 0.1);
+    width: 144px;
+    height: 222px;
     padding: 16px;
-    width: fit-content;
-
-    &__front {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        cursor: pointer;
-        border-radius: 3px;
-    }
 
     &__image {
-        opacity: 0.9;
-        transition: opacity .2s ease-out;
-        width: 200px;
-        height: 275px;
+    height: 185px;
     }
 
-    &__hover {
-        position: absolute;
-        opacity: 0;
-        max-width: 80%;
-        transition: opacity .3s ease-out;
-        inset: 100px 50px;
-        line-height: none; 
-    }
 
     &__name {
-        color: black;
+        display: flex;
+        margin-top: 8px;
+        @include card-name-mobile;
     }
 
     &__set {
-        color: black;
-    }
-
-    &:hover {
-        h2 {
-            opacity: 1;
-            transition: opacity .5s .1s ease-in;
-        }
-
-        p {
-            opacity: 1;
-            transition: opacity .5s .1s ease-in;
-        }
+        display: flex;
+        flex-wrap: wrap;
+        @include set-name-mobile;
     }
 
     @media only screen and (min-width: $tablet-breakpoint) {
+       
+        &__name {
+            @include card-name;
+        }
+
+        &__set {
+            @include set-name;
+        }
+
     }
 
     @media only screen and (min-width: $desktop-breakpoint) {
+        
+    
+
     }
 
-}
 
-
-.pokemon_card__hover:hover {
-    opacity: 1;
-    transition: opacity .5s .1s ease-in;
 }
 
 .pokemon_card:hover {
-    opacity: 0.8;
-    transition: opacity .5s .1s ease-in;
+    background-color: rgba(176, 184, 198, 0.3);
+    
 }
