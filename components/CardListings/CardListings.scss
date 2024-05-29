@@ -3,3 +3,31 @@
 @use "../styles/partials/variables" as *;
 @use "../styles/partials/mixins" as *;
 @use "../styles/partials/typography" as *;
+
+
+.cardpost {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &__link {
+        text-decoration: none;
+        color: $black;
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+        flex-direction: row;
+
+        &__link {
+            margin-right: 16px;
+        }
+    
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+    }
+
+}

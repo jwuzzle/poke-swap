@@ -1,15 +1,16 @@
-import React from "react";
-import PokemonCardDetailsComp from "../../components/PokemonCardDetails/PokemonCardDetailsComp";
+import "./PokemonCardDetails.scss";
+import PokemonCardDetailsComp from "../../components/PokemonCardDetails/PokemonCardDetailsComp/PokemonCardDetailsComp";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import PokemonCardAbilitiesDetails from "../../components/PokemonCardDetails/PokemonCardAbilitiesDetails";
-import PokemonCardAttacksDetails from "../../components/PokemonCardDetails/PokemonCardAttacksDetails";
-import PokemonCardWeaknessDetails from "../../components/PokemonCardDetails/PokemonCardWeaknessDetails";
-import PokemonCardImage from "../../components/PokemonCardDetails/PokemonCardImage";
-import PokemonCardPricing from "../../components/PokemonCardDetails/PokemonCardPricing";
+import PokemonCardAbilitiesDetails from "../../components/PokemonCardDetails/PokemonCardAbilitiesDetails/PokemonCardAbilitiesDetails";
+import PokemonCardAttacksDetails from "../../components/PokemonCardDetails/PokemonCardAttacksDetails/PokemonCardAttacksDetails";
+import PokemonCardWeaknessDetails from "../../components/PokemonCardDetails/PokemonCardWeaknessDetails/PokemonCardWeaknessDetails";
+import PokemonCardImage from "../../components/PokemonCardDetails/PokemonCardImage/PokemonCardImage";
+import PokemonCardPricing from "../../components/PokemonCardDetails/PokemonCardPricing/PokemonCardPricing";
 import CardListings from "../../components/CardListings/CardListings";
 import axios from "axios";
 import ListingButton from "../../components/Buttons/ListingButton/ListingButton";
+import PokemonCardLogo from "../../components/PokemonCardDetails/PokemonCardLogo/PokemonCardLogo";
 
 const PokemonCardDetails = () => {
   const { id, name } = useParams();
@@ -22,7 +23,7 @@ const PokemonCardDetails = () => {
     (poke) => poke.id === id
   );
 
-  console.log(filteredPokeDataObject)
+  console.log(filteredPokeDataObject);
 
   const baseURL = import.meta.env.VITE_APP_BASE_URL;
   const getcardsURL = `${baseURL}/cards/${id}`;
@@ -84,41 +85,56 @@ const PokemonCardDetails = () => {
   console.log(pricingObject[1]);
 
   return (
-    <>
-      <div></div>
-      <ListingButton
-        type="button"
-        button_label="Create Trade Listing"
-        destination={`/search/${name}/${id}/upload`}
-      />
-      <PokemonCardImage
-        image={filteredPokeDataObject[0].images.small}
-        cardname={filteredPokeDataObject[0].name}
-      />
-      <PokemonCardDetailsComp
-        logo={filteredPokeDataObject[0].set.images.logo}
-        cardname={filteredPokeDataObject[0].name}
-        setname={filteredPokeDataObject[0].set.name}
-        setreleasedate={filteredPokeDataObject[0].set.releaseDate}
-        cardnumber={filteredPokeDataObject[0].number}
-        tcgplayer={filteredPokeDataObject[0].tcgplayer.url}
-        hp={filteredPokeDataObject[0].hp}
-        type={filteredPokeDataObject[0].types}
-        evolve={filteredPokeDataObject[0].evolvesFrom}
-        rules={filteredPokeDataObject[0].rules}
-        retrestcost={filteredPokeDataObject[0].set.releaseDate}
-      />
-      {filteredPokeDataObject[0].abilities !== undefined
-        ? filteredPokeDataObject[0].abilities.map((ability, index) => (
+    <section className="card-details">
+      <div className="card-container">
+        <div className="top-section">
+          <PokemonCardImage
+            image={filteredPokeDataObject[0].images.small}
+            cardname={filteredPokeDataObject[0].name}
+          />
+          <div className="logo-button-container">
+            <PokemonCardLogo logo={filteredPokeDataObject[0].set.images.logo} />
+            <ListingButton
+              type="button"
+              button_label="Create Trade Listing"
+              destination={`/search/${name}/${id}/upload`}
+            />
+          </div>
+        </div>
+        <div className="details-comp">
+          <PokemonCardDetailsComp
+            logo={filteredPokeDataObject[0].set.images.logo}
+            cardname={filteredPokeDataObject[0].name}
+            setname={filteredPokeDataObject[0].set.name}
+            setreleasedate={filteredPokeDataObject[0].set.releaseDate}
+            cardnumber={filteredPokeDataObject[0].number}
+            rarity={filteredPokeDataObject[0].rarity}
+            tcgplayer={filteredPokeDataObject[0].tcgplayer.url}
+            hp={filteredPokeDataObject[0].hp}
+            type={filteredPokeDataObject[0].types}
+            evolve={filteredPokeDataObject[0].evolvesFrom}
+            rules={filteredPokeDataObject[0].rules}
+          />
+        </div>
+      </div>
+      {filteredPokeDataObject[0].abilities !== undefined ? (
+        <>
+          <h1 className="section-label">Abilities</h1>
+          {filteredPokeDataObject[0].abilities.map((ability, index) => (
             <PokemonCardAbilitiesDetails
               key={index}
               abilityname={ability.name}
               abilitytext={ability.text}
             />
-          ))
-        : ""}
-      {filteredPokeDataObject[0].attacks !== undefined
-        ? filteredPokeDataObject[0].attacks.map((attack, index) => (
+          ))}
+        </>
+      ) : (
+        ""
+      )}
+      {filteredPokeDataObject[0].attacks !== undefined ? (
+        <>
+          <h1 className="section-label">Attacks</h1>
+          {filteredPokeDataObject[0].attacks.map((attack, index) => (
             <PokemonCardAttacksDetails
               key={index}
               attackname={attack.name}
@@ -127,20 +143,43 @@ const PokemonCardDetails = () => {
               attackcovertenergycost={attack.convertedEnergyCost}
               attackdamage={attack.damage}
             />
-          ))
-        : ""}
-      {filteredPokeDataObject[0].weaknesses !== undefined
-        ? filteredPokeDataObject[0].weaknesses.map((weak, index) => (
+          ))}
+        </>
+      ) : (
+        ""
+      )}
+      {filteredPokeDataObject[0].weaknesses !== undefined ? (
+        <>
+          <h1 className="section-label">Weaknesses</h1>
+          {filteredPokeDataObject[0].weaknesses.map((weak, index) => (
             <PokemonCardWeaknessDetails
               key={index}
               weaknesstype={weak.type}
               weaknessvalue={weak.value}
             />
-          ))
-        : ""}
+          ))}
+        </>
+      ) : (
+        ""
+      )}
       <PokemonCardPricing />
-      <CardListings />
-    </>
+      <div className="list-button">
+        <p className="list-button__header">Have one to trade?</p>
+        <div className="list-button__container">
+          <ListingButton
+            type="button"
+            button_label="Create Trade Listing"
+            destination={`/search/${name}/${id}/upload`}
+          />
+        </div>
+      </div>
+      <div className="details-listings">
+        <h1 className="details-listings__header">Trade Listings</h1>
+        <div className="details-listings__lists">
+          <CardListings />
+        </div>
+      </div>
+    </section>
   );
 };
 export default PokemonCardDetails;

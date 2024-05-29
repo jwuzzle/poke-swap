@@ -4,3 +4,92 @@
 @use "../styles/partials/mixins" as *;
 @use "../styles/partials/typography" as *;
 
+
+.loader {
+    display: flex;
+    justify-content: center;
+
+    &__message {
+        text-align: center;
+
+    }
+}
+
+
+.results-header {
+    display: flex;
+
+
+    &__title {
+        @include page-header-mobile;
+
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+       
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin: 0 auto;
+        gap: 2%;
+        padding: 96px 0 0 0;
+        max-width: 1200px;
+
+        &__title {
+            @include page-header;
+
+        }
+
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+    
+
+    }
+
+
+}
+
+.results {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 36px;
+
+    &__item {
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+    }
+
+
+    &__card-link {
+        text-decoration: none;
+        color: $black;
+    }
+
+
+    &__card {
+        margin: 16px;
+
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+       
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin: 0 auto;
+        gap: 2%;
+        padding: 96px 0;
+        max-width: 1200px;
+
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+        
+    
+
+    }
+}

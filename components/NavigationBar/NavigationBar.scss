@@ -6,29 +6,77 @@
 
 .navbar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    background-color: $deepoceanic;
 
     &__logo-container {
-
+        height: 36px;
     }
 
     &__logo {
-
+        height: 36px;
+        margin-left: 16px;
+        width: 100px;
     }
 
     &__menu {
         display: flex;
         list-style: none;
+        flex-direction: column;
+        margin-right: 16px;
     }
 
     &__item {
+        color: $white;
+        @include body-copy-mobile;
     }
 
     @media only screen and (min-width: $tablet-breakpoint) {
-        flex-direction: row;
+        height: 56px;
+
+        &__logo-container {
+            height: 56px;
+            padding-bottom: 15px;
+        }
+
+        &__logo {
+           height: 56px;
+           margin-left: 96px;
+           width: 150px;
+        }
+
+        &__menu {
+            flex-direction: row;
+            align-items: center;
+            margin-right: 96px;
+            justify-content: space-between;
+        }
+
+        &__item {
+            margin-left: 16px;
+            color: $white;
+        }
+
+        &__signup {
+                border: 1px solid $white;
+                border-radius: 4px;
+                color: $white;
+                padding: 8px;
+            }
+        
+
     }
 
     @media only screen and (min-width: $desktop-breakpoint) {
+
     }
+
+
+}
+
+svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	outline: 1px solid #f00; //guidelines
 }

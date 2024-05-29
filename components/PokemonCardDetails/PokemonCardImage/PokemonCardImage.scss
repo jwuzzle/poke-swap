@@ -1,0 +1,22 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.details-image {
+
+    &__card {
+        width: 100px;
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+
+        &__card {
+            width: 200px;
+        }
+
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {}
+}

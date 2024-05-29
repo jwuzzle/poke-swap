@@ -1,0 +1,78 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.card-details {
+
+    display: flex;
+    flex-direction: column;
+    margin: 24px 16px;
+
+}
+
+.card-container {
+display: flex;
+flex-direction: column;
+}
+
+.top-section {
+    display: flex;
+    justify-content: center;
+}
+
+.logo-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 16px;
+}
+
+.details-comp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-label {
+    @include section-header-mobile;
+    margin-bottom: 16px;
+}
+
+.list-button {
+    margin: 16px 0;
+
+    &__header {
+        @include body-copy-mobile
+    }
+
+    &__container {
+
+    }
+}
+
+.details-listings {
+    display: flex;
+    flex-direction: column;
+
+    &__header {
+        @include section-header-mobile;
+    }
+
+   &__lists {
+     
+    } 
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+        &__lists {
+     
+        } 
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+    }
+
+}
+
