@@ -1,5 +1,6 @@
 import "./UserCardCollectionPage.scss";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
@@ -40,18 +41,29 @@ const UserCardCollection = () => {
 
   console.log(userCards);
 
+  const dataObject = { cards: userCards };
+  const stringifiedPokeData = JSON.stringify(dataObject);
+  sessionStorage.setItem("posts object", stringifiedPokeData);
+
   return (
     <div className="collection">
-        <h3 className="collection__header">My Collection</h3>
-        <div className="collection__container">
-      {userCards.map((userCard, index) => (
-        <PokemonCard 
-        key={index}
-        image={userCard.front_image_url}
-        cardname={userCard.name}
-        setname={userCard.set}
-        />
-      ))}
+      <h3 className="collection__header">My Collection</h3>
+      <div className="collection__container">
+        {userCards.map((userCard, index) => (
+          <Link
+            className="results__card-link"
+            to={{
+              pathname: `/collection/${userCard.user_id}/listing/${userCard.id}`,
+            }}
+          >
+            <PokemonCard
+              key={index}
+              image={userCard.front_image_url}
+              cardname={userCard.name}
+              setname={userCard.set}
+            />
+          </Link>
+        ))}
       </div>
     </div>
   );
