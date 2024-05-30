@@ -41,8 +41,9 @@ const UserCardCollection = () => {
   console.log(userCards);
 
   return (
-    <div>
-        <h3>My Collection</h3>
+    <div className="collection">
+        <h3 className="collection__header">My Collection</h3>
+        <div className="collection__container">
       {userCards.map((userCard, index) => (
         <PokemonCard 
         key={index}
@@ -51,6 +52,7 @@ const UserCardCollection = () => {
         setname={userCard.set}
         />
       ))}
+      </div>
     </div>
   );
 };
