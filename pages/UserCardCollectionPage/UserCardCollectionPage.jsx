@@ -46,11 +46,13 @@ const UserCardCollection = () => {
   sessionStorage.setItem("posts object", stringifiedPokeData);
 
   return (
+    (userId === null ? (<p>Loading...</p>) : (
     <div className="collection">
       <h3 className="collection__header">My Collection</h3>
       <div className="collection__container">
         {userCards.map((userCard, index) => (
           <Link
+          key={index}
             className="results__card-link"
             to={{
               pathname: `/collection/${userCard.user_id}/listing/${userCard.id}`,
@@ -65,7 +67,7 @@ const UserCardCollection = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </div>) )
   );
 };
 

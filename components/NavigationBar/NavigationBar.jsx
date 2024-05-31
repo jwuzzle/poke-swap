@@ -32,6 +32,14 @@ const NavigationBar = () => {
         >
           <li className="navbar__item navbar__signup">Sign up</li>{" "}
         </Link>
+        <Link
+          className="navbar__link"
+          to={{
+            pathname: `/collection`,
+          }}
+        >
+          <li className="navbar__item navbar__signup">My Collection</li>{" "}
+        </Link>
       </ul>
     </nav>
   );

@@ -114,7 +114,7 @@ const CreateCardPostPage = () => {
   const postCardURL = `${baseURL}/posts/${cardId}`;
   const [quantity, setQuantity] = useState('');
 
-  const testUpload = async (event) => {
+  const uploadForm = async (event) => {
     event.preventDefault();
     const resultFront = await uploadMediaFront();
     const resultBack = await uploadMediaBack();
@@ -143,11 +143,11 @@ const CreateCardPostPage = () => {
   return (
     <section>
       <h1>{capitalizedName}</h1>
-      <form onSubmit={testUpload}>
+      <form onSubmit={uploadForm}>
         <Condition />
         <Quantity 
         quantity={quantity}
-     update={(event) => setQuantity(event.target.value)}
+     setQuantity={setQuantity}
         />
         <PhotoUpload update={handleMediaChangeFront} />
         <PhotoUpload update={handleMediaChangeBack} />

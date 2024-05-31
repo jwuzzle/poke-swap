@@ -12,6 +12,7 @@ import UserCardCollection from "../pages/UserCardCollectionPage/UserCardCollecti
 import CardPostDetailsPage from "../pages/CardPostDetailsPage/CardPostDetailsPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import OtherUsersCardCollectionPage from "../pages/OtherUsersCardCollectionPage/OtherUsersCardCollectionPage";
+import EditCardPostPage from "../pages/EditCardPostPage/EditCardPostPage";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/collection" element={<UserCardCollection />} />
         <Route path="/collection/:userid" element={<OtherUsersCardCollectionPage />} />
         <Route path="/collection/:userid/listing/:postid" element={<CardPostDetailsPage />} />
+        <Route path="/collection/:userid/listing/:postid/edit" element={<EditCardPostPage />} />
 
         </Routes>
       </BrowserRouter>
