@@ -14,41 +14,70 @@ const SearchHome = () => {
     navigate(`/search/${searchValue.toLowerCase()}`);
   };
 
-  const [images, setImages] = useState(() => {
-    const storedImages = localStorage.getItem('images');
-    return storedImages ? JSON.parse(storedImages) : [];
-  });
+  const [images, setImages] = useState([]);
+  const [imagesTwo, setImagesTwo] = useState([]);
 
   useEffect(() => {
+    console.log("useEffect triggered");
     const fetchImages = async () => {
+      console.log("Fetching images");
       try {
-        const response = await axios.get(baseURL);
-        const data = response.data.data;
+        const response = await axios.get(`${baseURL}/cardimages`);
+        const data = response.data;
         setImages(data);
-        localStorage.setItem('images', JSON.stringify(data));
+        localStorage.setItem("images", JSON.stringify(data));
+        console.log("Images fetched and state set");
       } catch (error) {
         console.error("Error fetching images:", error);
       }
     };
+
+    const fetchImages2 = async () => {
+      console.log("Fetching images");
+      try {
+        const response = await axios.get(`${baseURL}/cardimages/second`);
+        const data = response.data;
+        setImagesTwo(data);
+        localStorage.setItem("images", JSON.stringify(data));
+        console.log("Images fetched and state set");
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
     fetchImages();
+    fetchImages2();
   }, []);
 
-
-  console.log(images)
-
+  console.log("Rendered images:", images);
 
   return (
     <section className="search">
-    {images.length === 0 ? <p className="search__loading">loading...</p> : <div className="search-image-container">
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={image.images.small}
-          className={`search-image pos-${index}`}
-        />
-      ))}
-      <div className="search-image-container__overlay"></div>
-    </div>}
+      {images.length === 0 ? (
+        <p className="search__loading">loading...</p>
+      ) : (
+        <div>
+          <div className="search-image-container">
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image.image_url}
+                className={`search-image pos__index-${index}`}
+              />
+            ))}
+          </div>
+          <div className="search-image-container__bottom">
+            {imagesTwo.map((image, index) => (
+              <img
+                key={index}
+                src={image.image_url}
+                className={`search-image pos__index-${index}--2`}
+              />
+            ))}
+          </div>
+          <div className="search-image-container__overlay"></div>
+        </div>
+      )}
       <div className="search__box">
         <h1 className="search__header">POKE SWAP</h1>
         <h2 className="search__subheader">Your Trading Marketplace</h2>
