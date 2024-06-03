@@ -13,6 +13,7 @@ import CardPostDetailsPage from "../pages/CardPostDetailsPage/CardPostDetailsPag
 import LoginPage from "../pages/LoginPage/LoginPage";
 import OtherUsersCardCollectionPage from "../pages/OtherUsersCardCollectionPage/OtherUsersCardCollectionPage";
 import EditCardPostPage from "../pages/EditCardPostPage/EditCardPostPage";
+import TradesHomePage from "../pages/TradesHomePage/TradesHomePage";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/collection/:userid" element={<OtherUsersCardCollectionPage />} />
         <Route path="/collection/:userid/listing/:postid" element={<CardPostDetailsPage />} />
         <Route path="/collection/:userid/listing/:postid/edit" element={<EditCardPostPage />} />
+        <Route path="/trades" element={<TradesHomePage />} />
 
         </Routes>
       </BrowserRouter>
