@@ -13,12 +13,12 @@ const Modal = (props) => {
                     <img src={closeIcon} alt="close the pop up" onClick={props.toggleModal}/>
                 </div>
                 <div>
-                    <h2 className="modal-content__title">Delete Listing?</h2>
-                    <p className="modal-content__body">Please confirm that you'd like to delete your listing. You won't be able to undo this action.</p>
+                    <h2 className="modal-content__title">{props.title}</h2>
+                    <p className="modal-content__body">{props.body}</p>
                 </div>
                 <div className="buttons">
                     <button onClick={props.toggleModal} className="buttons__cancel">Cancel</button>
-                    <button onClick={props.handleDelete} className="buttons__delete">Delete</button>
+                    <button onClick={props.handleAction} className="buttons__delete">{props.action}</button>
                 </div>
             </div>
         </div>

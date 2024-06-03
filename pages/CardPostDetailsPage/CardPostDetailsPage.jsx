@@ -36,9 +36,9 @@ const CardPostDetailsPage = () => {
     console.log(decoded);
   }
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const toggleDeleteModal = () => {
+    setIsDeleteModalOpen(!isDeleteModalOpen);
   }
 
   const deletePost = async () => {
@@ -51,6 +51,28 @@ const CardPostDetailsPage = () => {
       console.error("Error deleting listing:", error);
     }
   }
+
+  const [isTradeModalOpen, setIsTradeModalOpen] = useState(false);
+  const toggleTradeModal = () => {
+    setIsTradeModalOpen(!isTradeModalOpen);
+  }
+
+  const startTradeURL = `${baseURL}/trades`;
+  const startTrade = async () => {
+    try {
+      const postToTradeAndTradeItemsTableResponse = await axios.post(startTradeURL, {
+        offer_user: decoded.id,
+        receive_user: postData.user_id,
+        status: "pending",
+        postid: postData.id
+      });
+      console.log("Response from server after post:", postToTradeAndTradeItemsTableResponse.data);
+    } catch (errror) {
+      ("Something went wrong. Please try again."
+      );
+    }
+    /* navigate("/home"); */
+  };
 
   return !postData ? (
     <p>Loading...</p>
@@ -125,7 +147,7 @@ const CardPostDetailsPage = () => {
       ) : (
         <div>
           <p>Start a trade with {postData.username}?</p>
-          <button>Yes</button>
+          <button onClick={toggleTradeModal}>Yes</button>
         </div>
       )}
       {postData.user_id !== decoded.id ? (
@@ -143,10 +165,11 @@ const CardPostDetailsPage = () => {
       {postData.user_id !== decoded.id ? (
         ""
       ) : (
-          <button onClick={toggleModal}>Delete</button>
+          <button onClick={toggleDeleteModal}>Delete</button>
       )}
       <div>
-        <Modal isOpen={isModalOpen} toggleModal={toggleModal} handleDelete={deletePost} />
+        <Modal isOpen={isDeleteModalOpen} toggleModal={toggleDeleteModal} handleAction={deletePost} action="Delete" title="Delete Listing?" body="Please confirm that you'd like to delete your listing. You won't be able to undo this action." />
+        <Modal isOpen={isTradeModalOpen} toggleModal={toggleTradeModal} handleAction={startTrade} action="Let's Trade!" title="Confirm Your Trade" body={`Please confirm that you'd like to start this trade request with ${postData.username}. You won't be able to undo this action.`} />
       </div>
     </div>
   );

@@ -40,6 +40,14 @@ const NavigationBar = () => {
         >
           <li className="navbar__item navbar__signup">My Collection</li>{" "}
         </Link>
+        <Link
+          className="navbar__link"
+          to={{
+            pathname: `/trades`,
+          }}
+        >
+          <li className="navbar__item navbar__signup">My Trades</li>{" "}
+        </Link>
       </ul>
     </nav>
   );
