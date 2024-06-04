@@ -14,6 +14,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import OtherUsersCardCollectionPage from "../pages/OtherUsersCardCollectionPage/OtherUsersCardCollectionPage";
 import EditCardPostPage from "../pages/EditCardPostPage/EditCardPostPage";
 import TradesHomePage from "../pages/TradesHomePage/TradesHomePage";
+import TradePage from "../pages/TradePage/TradePage";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/collection/:userid/listing/:postid" element={<CardPostDetailsPage />} />
         <Route path="/collection/:userid/listing/:postid/edit" element={<EditCardPostPage />} />
         <Route path="/trades" element={<TradesHomePage />} />
+        <Route path="/trades/:tradeid" element={<TradePage />} />
 
         </Routes>
       </BrowserRouter>

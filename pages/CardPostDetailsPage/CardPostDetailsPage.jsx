@@ -55,7 +55,7 @@ const CardPostDetailsPage = () => {
   const [isTradeModalOpen, setIsTradeModalOpen] = useState(false);
   const toggleTradeModal = () => {
     setIsTradeModalOpen(!isTradeModalOpen);
-  }
+  };
 
   const startTradeURL = `${baseURL}/trades`;
   const startTrade = async () => {
