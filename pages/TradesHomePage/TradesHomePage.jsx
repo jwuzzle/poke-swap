@@ -4,6 +4,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import TradeCards from "../../components/CardListings/TradeCards/TradeCards";
 import Modal from "../../components/Modal/Modal";
+import "./TradesHomePage.scss";
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
@@ -84,39 +85,51 @@ const TradesHomePage = () => {
   };
 
   return (
-    <div>
-      <p>Your Trades</p>
-      {userOffTrades.map((trade, index) => (
-        <TradeCards
-          key={index}
-          frontimage={trade.posts_front_image}
-          name={trade.card_name}
-          requester_name={trade.users_username}
-          receiver_name={trade.users_username}
-          status={trade.trade_status}
-        />
-      ))}
-      <p>Your Trades Requests</p>
-      <div>
-        {userRecTrades.length === 0 ? (
-          <p>No open requests</p>
-        ) : (
-          userRecTrades.map((trade, index) => (
-            <TradeCards
-              key={index}
-              frontimage={trade.posts_front_image}
-              name={trade.card_name}
-              requester_name={trade.users_username}
-              receiver_name={trade.users_username}
-              status={trade.trade_status}
-              onClick={
-                trade.trade_status === "pending"
-                  ? () => toggleAcceptTradeRequestModal(trade)
-                  : () => goToTradePage(trade.trade_id)
-              }
-            />
-          ))
-        )}
+    <section className="trade-home">
+      <h1 className="trade-home__page-header">Trading Arena</h1>
+      <div className="trade-home__arena">
+        <div className="trade-home__top">
+          <h2 className="trade-home__subheader">My Trade Offers</h2>
+          <div className="trade-home__top-list">
+            {userOffTrades.map((trade, index) => (
+              <TradeCards
+                key={index}
+                frontimage={trade.posts_front_image}
+                name={trade.card_name}
+                requester_name={trade.users_username}
+                receiver_name={trade.users_username}
+                status={trade.trade_status}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="trade-home__center">
+          <div className="trade-home__pokeball"></div>
+        </div>
+        <div className="trade-home__bottom">
+          <h2 className="trade-home__subheader">Trades Requests</h2>
+          <div className="trade-home__bottom-list">
+            {userRecTrades.length === 0 ? (
+              <p>No open requests</p>
+            ) : (
+              userRecTrades.map((trade, index) => (
+                <TradeCards
+                  key={index}
+                  frontimage={trade.posts_front_image}
+                  name={trade.card_name}
+                  requester_name={trade.users_username}
+                  receiver_name={trade.users_username}
+                  status={trade.trade_status}
+                  onClick={
+                    trade.trade_status === "pending"
+                      ? () => toggleAcceptTradeRequestModal(trade)
+                      : () => goToTradePage(trade.trade_id)
+                  }
+                />
+              ))
+            )}
+          </div>
+        </div>
       </div>
       <div>
         <Modal
@@ -130,7 +143,7 @@ const TradesHomePage = () => {
           body={`Please confirm that you'd like to start the trade with ${selectedTradeRequest.users_username}.`}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -6,14 +6,26 @@
 
 .tradecard {
     width: fit-content;
+    border: 3px solid $pokemonyellow;
+    background-color: $white;
+    width: 200px;
+    height: 300px;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    align-items: center;
+    justify-content: center;
 
 
     &__image {
         height: 185px;
+        width: 150px;
 
     }
 
     &__text-container {
+        margin-top: 16px;
 
     }
 
@@ -36,3 +48,10 @@
         }
     }
 }
+
+
+.tradecard:hover {
+    transform: scale(1.1); /* Slightly increase size */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Add shadow to create depth */
+    border-radius: 5%;
+  }

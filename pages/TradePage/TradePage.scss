@@ -1,0 +1,161 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+
+
+.trade-page {
+    background-color: #2a75bb;
+    height: 100vh;
+
+    &__page-header {}
+
+    &__trades-arena {
+        border: 5px solid $white;
+        background-color: $pokemondarkblue;
+        padding: 36px;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    &__user {
+
+        &--receiver {
+            display: flex;
+            flex-direction: column;
+            /*    flex: 1; */
+        }
+
+        &--offerer {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__subheader {
+        display: flex;
+        justify-content: center;
+        color: $white;
+    }
+
+    &__top-list {
+        display: flex;
+        flex-direction: column;
+        margin-top: 36px;
+        overflow-y: auto;
+    }
+
+    &__center {
+        /* border: 10px solid $white; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__pokeball {
+        height: 200px;
+        width: 200px;
+        border: 15px solid $black;
+        border-radius: 50%;
+        background-image: linear-gradient(#f51939 100px,
+                white 20px);
+        position: relative;
+    }
+
+
+
+    &__bottom-list {
+        display: flex;
+        flex-direction: column;
+        margin-top: 36px;
+        overflow-y: auto;
+    }
+
+
+
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+
+        padding: 60px 90px;
+        height: fit-content;
+
+        &__page-header {
+            margin-bottom: 60px;
+            @include page-header;
+        }
+
+        &__user {
+
+            &--offerer {
+                display: flex;
+                flex-direction: column;
+                margin-top: 36px;
+            }
+        }
+
+        &__subheader {}
+
+        &__top-list {
+            display: flex;
+            flex-direction: row;
+        }
+
+        &__center {}
+
+        &__pokeball {}
+
+
+        &__bottom-list {
+            display: flex;
+            flex-direction: row;
+            gap: 5%;
+        }
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+
+        &__top {}
+
+        &__subheader {}
+
+        &__top-list {}
+
+        &__center {}
+
+        &__pokeball {}
+
+        &__bottom {}
+
+        &__bottom-list {}
+
+
+
+
+    }
+
+}
+
+
+
+
+
+.trade-page__pokeball::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    /* Full viewport width */
+    height: 15px;
+    /* Adjust the height of the line as needed */
+    background-color: black;
+    /* Color of the line */
+    z-index: 1;
+    /* Ensure the line is behind the pokeball */
+    margin: 0 90px;
+    margin-right: 90px;
+}
