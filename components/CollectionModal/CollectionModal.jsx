@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import "./CollectionModal.scss";
 import axios from "axios";
-import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import closeIcon from "../../src/assets/icons/close.svg";
+import PokemonCardCollectionModal from "../PokemonCard/PokemonCardCollectionModal";
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
@@ -38,12 +38,18 @@ const CollectionModal = (props) => {
     );
   };
 
+  console.log(collection)
+  console.log(props.data)
+
+  const selectedItems = new Set(props.data);
+  console.log(selectedItems)
+
   return (
     props.isOpen && (
-      <div className="modal">
-        <div className="overlay">
-          <div className="modal-content">
-            <div className="closeButton">
+      <div className="collection-modal">
+        <div className="collection-modal__overlay">
+          <div className="collection-modal__modal-content">
+            <div className="collection-modal__closeButton">
               <img
                 src={closeIcon}
                 alt="close the pop up"
@@ -51,24 +57,28 @@ const CollectionModal = (props) => {
               />
             </div>
             <div>
-              <h2 className="modal-content__title">{props.title}</h2>
-              <p className="modal-content__body">{props.body}</p>
+              <h2 className="collection-modal__title">{props.title}</h2>
+              <p className="collection-modal__body">{props.body}</p>
+              <div className="collection-modal__cardlist">
               {props.isOpen &&
                 collection.map((collect, index) => (
-                  <PokemonCard
+                  <PokemonCardCollectionModal
                     key={index}
                     image={collect.front_image_url}
                     cardname={collect.name}
                     setname={collect.set}
+                    condition={collect.condition}
                     onclick={() => toggleItem(collect.id)}
+                    className={`modal-card ${selectedItems.has(collect.id) ? `selected` : ""}`}
                   />
                 ))}
+                </div>
             </div>
-            <div className="buttons">
-              <button onClick={props.toggleModal} className="buttons__cancel">
+            <div className="collection-modal__buttons">
+              <button onClick={props.toggleModal} className="collection-modal__buttons--cancel">
                 Cancel
               </button>
-              <button onClick={props.handleAction} className="buttons__action">
+              <button onClick={props.handleAction} className="collection-modal__buttons--action">
                 {props.action}
               </button>
             </div>

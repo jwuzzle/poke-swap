@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
+import "./TradePage.scss";
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
@@ -60,6 +61,7 @@ const TradePage = () => {
   };
 
   const [selectedItems, setSelectedItems] = useState([]);
+  console.log(selectedItems);
 
   const addCardsToTrade = async () => {
     try {
@@ -74,6 +76,7 @@ const TradePage = () => {
     } catch (error) {
       console.error("Error when adding requester cards to trade", error);
     }
+    setIsPickCardsModalOpen(false);
   };
 
   //// get offerer's trade data
@@ -99,44 +102,62 @@ const TradePage = () => {
     }
   }, [tradeData]);
 
+  console.log(receiverTradeData);
+
   return (
-    <div>
-      <h1>Placeholder Heading For the Page</h1>
-      <div>
-        <h2>
-          {tradeData.length > 0 &&
-            `${tradeData[0].receiving_username}'s Cards in the Trade (the receiver)`}
-        </h2>
-        {receiverTradeData &&
-          receiverTradeData.map((receive, index) => (
-            <PokemonCard
-              key={index}
-              image={receive.front_image_url}
-              cardname={receive.card_name}
-              setname={receive.card_setname}
-              condition={receive.posts_condition}
-            />
-          ))}
-      </div>
-      <div>
-        <h2>
-          {tradeData.length > 0 &&
-            `${tradeData[0].offering_username}'s Cards in the Trade (the requester)`}
-        </h2>
-        {offererTradeData &&
-          offererTradeData.map((offer, index) => (
-            <PokemonCard
-              key={index}
-              image={offer.front_image_url}
-              cardname={offer.card_name}
-              setname={offer.card_setname}
-              condition={offer.posts_condition}
-            />
-          ))}
-        <p>See User B's collection to add to the trade</p>
-        <button onClick={() => togglePickCardsModal(offeringUserId)}>
-          Show
-        </button>
+    <div className="trade-page">
+      <h1 className="trade-page__page-header">
+        Placeholder Heading For the Page
+      </h1>
+      <div className="trade-page__trades-arena">
+        <div className="trade-page__user--receiver">
+          <h2 className="trade-page__subheader">
+            {tradeData.length > 0 &&
+              `${tradeData[0].receiving_username}'s Cards in the Trade (the receiver)`}
+          </h2>
+          <p>
+            Trade Value: <span>Placeholder for trade value of card(s)</span>
+          </p>
+          <div className="trade-page__top-list">
+            {receiverTradeData &&
+              receiverTradeData.map((receive, index) => (
+                <PokemonCard
+                  key={index}
+                  image={receive.front_image_url}
+                  cardname={receive.name}
+                  setname={receive.setname}
+                  condition={receive.condition}
+                />
+              ))}
+          </div>
+        </div>
+        <div className="trade-page__center">
+          <div className="trade-page__pokeball"></div>
+        </div>
+        <div className="trade-page__user--offerer">
+          <h2 className="trade-page__subheader">
+            {tradeData.length > 0 &&
+              `${tradeData[0].offering_username}'s Cards in the Trade (the requester)`}
+          </h2>
+          <p>
+            Trade Value: <span>Placeholder for trade value of card(s)</span>
+          </p>
+          <div className="trade-page__bottom-list">
+          {offererTradeData &&
+            offererTradeData.map((offer, index) => (
+              <PokemonCard
+                key={index}
+                image={offer.front_image_url}
+                cardname={offer.name}
+                setname={offer.setname}
+                condition={offer.condition}
+              />
+            ))}</div>
+          <p>See User B's collection to add to the trade</p>
+          <button onClick={() => togglePickCardsModal(offeringUserId)}>
+            Show
+          </button>
+        </div>
       </div>
       <CollectionModal
         isOpen={isPickCardsModalOpen}
@@ -145,6 +166,7 @@ const TradePage = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
         handleAction={addCardsToTrade}
+        data={selectedItems}
         title="Select cards you want for the trade."
         body={
           tradeData.length > 0 &&

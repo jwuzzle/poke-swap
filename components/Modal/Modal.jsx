@@ -1,5 +1,5 @@
-import React from "react";
 import closeIcon from "../../src/assets/icons/close.svg";
+import "./Modal.scss";
 
 const Modal = (props) => {
   return (

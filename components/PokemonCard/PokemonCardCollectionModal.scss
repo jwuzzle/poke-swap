@@ -4,40 +4,64 @@
 @use "../styles/partials/mixins" as *;
 @use "../styles/partials/typography" as *;
 
-.pokemon-card {
+.modal-card {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
     box-shadow: 0 10px 30px 5px rgba(115, 61, 61, 0.1);
-    width: 144px;
-    height: 222px;
+    width: 164px;
+    height: fit-content;
     padding: 16px;
 
-    &__image {
-    height: 185px;
+    &__cardimage-container {
+        display: flex;
+        justify-content: center;
     }
 
+    &__cardimage {
+    height: 155px;
+    width: 125px;
+    }
+&__carddata-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
+}
 
-    &__name {
+    &__cardname {
         display: flex;
         margin-top: 8px;
         @include card-name-mobile;
     }
 
-    &__set {
+    &__cardset {
         display: flex;
         flex-wrap: wrap;
         @include set-name-mobile;
     }
 
+    &__cardcondition {
+        @include set-name-mobile;
+        
+        &--data {
+
+        }
+    }
+
     @media only screen and (min-width: $tablet-breakpoint) {
        
-        &__name {
+        &__cardname {
             @include card-name;
         }
 
-        &__set {
+        &__cardset {
             @include set-name;
+        }
+
+        &__cardcondition {
+            @include set-name;
+            
         }
 
     }
@@ -51,11 +75,11 @@
 
 }
 
-.pokemon_card:hover {
+.collection-modal:hover {
     background-color: rgba(176, 184, 198, 0.3);
     
 }
 
 .selected {
-    border: 1px solid pink;
+    border: 2px solid #ffcb05;
 }
