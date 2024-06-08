@@ -75,11 +75,11 @@
 
 }
 
-.collection-modal:hover {
+.modal-card:hover {
     background-color: rgba(176, 184, 198, 0.3);
     
 }
 
-.selected {
+.modal-card.selected {
     border: 2px solid #ffcb05;
-}
+} 

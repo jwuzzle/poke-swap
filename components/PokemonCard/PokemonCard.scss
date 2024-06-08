@@ -9,25 +9,37 @@
     flex-direction: column;
     border-radius: 5px;
     box-shadow: 0 10px 30px 5px rgba(115, 61, 61, 0.1);
-    width: 144px;
-    height: 222px;
+    height: 210px;
+    width: 150px;
     padding: 16px;
+    border: 10px solid $pokemonyellow;
+    align-items: center;
+    justify-items: center;
+    background-color: $white;
+    margin-top: 20px;
 
-    &__image {
-    height: 185px;
+    &__name-container {
+        display: flex;
+        flex-direction: flex-start;
+        margin-bottom: 8px;
+        width: 100%;
+
+        &--name {
+            @include card-name-mobile;  
+        }
     }
 
-
-    &__name {
-        display: flex;
-        margin-top: 8px;
-        @include card-name-mobile;
+    &__image {
+    height: 150px;
     }
 
     &__set {
         display: flex;
-        flex-wrap: wrap;
-        @include set-name-mobile;
+        @include body-copy-mobile;
+    }
+
+    &__condition {
+        @include body-copy-mobile;
     }
 
     @media only screen and (min-width: $tablet-breakpoint) {
@@ -54,8 +66,4 @@
 .pokemon_card:hover {
     background-color: rgba(176, 184, 198, 0.3);
     
-}
-
-.selected {
-    border: 1px solid pink;
 }

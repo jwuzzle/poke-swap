@@ -32,6 +32,8 @@ const TradesHomePage = () => {
     getOffTradesByUserId();
   }, []);
 
+  console.log(userOffTrades)
+
   const [userRecTrades, setUserRecTrades] = useState([]);
   useEffect(() => {
     const getRecTradesByUserId = async () => {
@@ -44,6 +46,8 @@ const TradesHomePage = () => {
     };
     getRecTradesByUserId();
   }, []);
+
+  console.log(userRecTrades)
 
   const [isAcceptTradeRequestModalOpen, setIsAcceptTradeRequestModalOpen] =
     useState(false);
@@ -99,6 +103,10 @@ const TradesHomePage = () => {
                 requester_name={trade.users_username}
                 receiver_name={trade.users_username}
                 status={trade.trade_status}
+                onClick={() => {
+                    if (trade.trade_status === "pending") {
+                      alert("Waiting for user to accept your request.")
+                     } else {goToTradePage(trade.trade_id)}}}
               />
             ))}
           </div>

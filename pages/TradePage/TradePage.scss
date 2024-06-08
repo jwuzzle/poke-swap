@@ -7,55 +7,43 @@
 
 
 .trade-page {
-    background-color: #2a75bb;
+    background-color: $white;
     height: 100vh;
 
     &__page-header {}
 
-    &__trades-arena {
-        border: 5px solid $white;
-        background-color: $pokemondarkblue;
-        padding: 36px;
-        display: flex;
-        flex-direction: column;
+    @media only screen and (min-width: $tablet-breakpoint) {}
 
-    }
+    @media only screen and (min-width: $desktop-breakpoint) {}
 
-    &__user {
+}
 
-        &--receiver {
-            display: flex;
-            flex-direction: column;
-            /*    flex: 1; */
-        }
-
-        &--offerer {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-
-    &__subheader {
-        display: flex;
-        justify-content: center;
-        color: $white;
-    }
-
-    &__top-list {
-        display: flex;
-        flex-direction: column;
-        margin-top: 36px;
-        overflow-y: auto;
-    }
+.trade-arena {
+    border: 5px solid #2a75bb;
+    background-color: $pokemondarkblue;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
 
     &__center {
-        /* border: 10px solid $white; */
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
     &__pokeball {
+        height: 75px;
+        width: 75px;
+        border: 5px solid $black;
+        border-radius: 50%;
+        background-image: linear-gradient(#f51939 40px,
+                white 20px);
+        position: relative;
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+
+        &__pokeball {
         height: 200px;
         width: 200px;
         border: 15px solid $black;
@@ -64,20 +52,140 @@
                 white 20px);
         position: relative;
     }
+}
+
+    @media only screen and (min-width: $desktop-breakpoint) {}
 
 
+}
 
-    &__bottom-list {
+.receiver {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+    &__subheader {
+        @include subheader-mobile;
         display: flex;
-        flex-direction: column;
-        margin-top: 36px;
-        overflow-y: auto;
+        justify-content: center;
+        color: $white;
     }
 
+    &__name {
+        @include body-copy-mobile;
+    }
 
+    &__tradevalue {  @include body-copy-mobile;}
 
+    &__cards {
+        display: flex;
+        flex-direction: row;
+        margin: 36px 0;
+        overflow-x: auto;
+        height: fit-content;
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {}
+
+    @media only screen and (min-width: $desktop-breakpoint) {}
+}
+
+.requestor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+    &__subheader {
+        @include subheader-mobile;
+        display: flex;
+        justify-content: center;
+        color: $white;
+    }
+
+    &__name {
+        @include body-copy-mobile;
+        color: $white;
+    }
+
+    &__information {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $white;
+        border-radius: 5px;
+        padding: 16px;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    &__collection-header {
+        @include body-copy-mobile;
+        color: $white;
+        text-align: center;
+        margin-bottom: 16px;
+
+    }
+
+    &__collection-button {
+        background-color: $white;
+        border: 1px solid $white;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 0 1px rgba(0,0,0, 0.05);
+        padding: 0.25rem 1.25rem;
+        color: $black;
+        width: 50%;
+    }
+
+    &__tradevalue {
+        @include body-copy-mobile;
+        margin-bottom: 16px;
+        color: $white;
+    }
+
+    &__carousel {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        height: fit-content;
+    }
+
+    &__cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 36px 0;
+        width: 100%;
+        transition: transform 0.3s ease-in-out;
+
+    }
 
     @media only screen and (min-width: $tablet-breakpoint) {
+
+        &__cards {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 3%;
+            margin: 36px 0;
+            width: 100%;
+            transition: transform 0.3s ease-in-out;
+    
+        }
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {}
+}
+
+
+
+
+
+
+
+
+
+/*   @media only screen and (min-width: $tablet-breakpoint) {
 
         padding: 60px 90px;
         height: fit-content;
@@ -113,9 +221,9 @@
             flex-direction: row;
             gap: 5%;
         }
-    }
+    } */
 
-    @media only screen and (min-width: $desktop-breakpoint) {
+/*  @media only screen and (min-width: $desktop-breakpoint) {
 
         &__top {}
 
@@ -136,13 +244,30 @@
 
     }
 
-}
+} */
 
 
 
 
 
-.trade-page__pokeball::before {
+.trade-arena__pokeball::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -70%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    /* Full viewport width */
+    height: 5px;
+    /* Adjust the height of the line as needed */
+    background-color: black;
+    /* Color of the line */
+    /*  z-index: 1; */
+    /* Ensure the line is behind the pokeball */
+    margin: 0 90px;
+    margin-right: 90px;
+
+    @media only screen and (min-width: $tablet-breakpoint) {
     content: '';
     position: absolute;
     top: 50%;
@@ -154,8 +279,9 @@
     /* Adjust the height of the line as needed */
     background-color: black;
     /* Color of the line */
-    z-index: 1;
+    /*  z-index: 1; */
     /* Ensure the line is behind the pokeball */
     margin: 0 90px;
     margin-right: 90px;
+    }
 }

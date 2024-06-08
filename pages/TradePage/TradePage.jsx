@@ -5,16 +5,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import "./TradePage.scss";
+import TradeArenaCardContainer from "../../components/TradeArenaCardContainer/TradeArenaCardContainer";
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
 const TradePage = () => {
-  const { tradeid } = useParams();
   const navigate = useNavigate();
+  const { tradeid } = useParams();
   const getTradeURL = `${baseURL}/trades/${tradeid}`;
 
-  const [tradeData, setTradeData] = useState([]);
+  // get trade data
 
+  const [tradeData, setTradeData] = useState([]);
   const getTradeData = async () => {
     try {
       const response = await axios.get(getTradeURL);
@@ -28,10 +30,11 @@ const TradePage = () => {
     getTradeData();
   }, [tradeid]);
 
+  console.log(tradeData)
+
+  // get receiver trade data
+
   const receiverId = tradeData[0] && tradeData[0].receiving_user_id;
-
-  //// get receiver trade data
-
   const getReceiverTradeURL = `${baseURL}/trades/receiving/${tradeid}`;
   const [receiverTradeData, setReceiverTradeData] = useState(null);
 
@@ -52,37 +55,10 @@ const TradePage = () => {
     }
   }, [tradeData]);
 
-  const [isPickCardsModalOpen, setIsPickCardsModalOpen] = useState(false);
-  const [offeringUserId, setOfferingUserId] = useState();
-
-  const togglePickCardsModal = () => {
-    setIsPickCardsModalOpen(!isPickCardsModalOpen);
-    setOfferingUserId(tradeData[0].offering_user_id);
-  };
-
-  const [selectedItems, setSelectedItems] = useState([]);
-  console.log(selectedItems);
-
-  const addCardsToTrade = async () => {
-    try {
-      const response = selectedItems.map((postId) =>
-        axios.post(getTradeURL, {
-          tradeid: tradeid,
-          postid: postId,
-        })
-      );
-      const responses = await Promise.all(response);
-      responses.forEach((response) => console.log(response.data));
-    } catch (error) {
-      console.error("Error when adding requester cards to trade", error);
-    }
-    setIsPickCardsModalOpen(false);
-  };
-
   //// get offerer's trade data
-  const getOffererTradeURL = `${baseURL}/trades/offering/${tradeid}`;
-  const [offererTradeData, setOffererTradeData] = useState(null);
 
+  const [offererTradeData, setOffererTradeData] = useState(null);
+  const getOffererTradeURL = `${baseURL}/trades/offering/${tradeid}`;
   const offererId = tradeData[0] && tradeData[0].offering_user_id;
 
   const getOffererTradeData = async () => {
@@ -102,77 +78,192 @@ const TradePage = () => {
     }
   }, [tradeData]);
 
-  console.log(receiverTradeData);
+  const [offererCardIds, setOffererCardIds] = useState([]);
+  const [isPickCardsModalOpen, setIsPickCardsModalOpen] = useState(false);
+  const [isDeleteCardsModalOpen, setisDeleteCardsModalOpen] = useState(false);
+  const [offeringUserId, setOfferingUserId] = useState();
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [deleteItems, setDeleteItems] = useState([]);
+
+  const addCardsToTrade = async () => {
+    try {
+      const newCardIds = selectedItems.filter(
+        (id) => !offererCardIds.includes(id) //checks to make sure if user_card_id already exists, to not create a dup row
+      );
+      const response = newCardIds.map((postId) =>
+        axios.post(getTradeURL, {
+          tradeid: tradeid,
+          postid: postId,
+        })
+      );
+      const responses = await Promise.all(response);
+      responses.forEach((response) => console.log(response.data));
+      setIsPickCardsModalOpen(!isPickCardsModalOpen);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error when adding requester cards to trade", error);
+    }
+    setIsPickCardsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (offererTradeData) {
+      const cardIds = offererTradeData.map((data) => data.user_card_id);
+      setOffererCardIds(cardIds);
+    }
+  }, [offererTradeData]);
+
+  const togglePickCardsModal = () => {
+    setIsPickCardsModalOpen(!isPickCardsModalOpen);
+    setOfferingUserId(tradeData[0].offering_user_id);
+    setSelectedItems(offererCardIds);
+  };
+
+  const togglePickCardsModalDelete = () => {
+    setisDeleteCardsModalOpen(!isDeleteCardsModalOpen);
+    setOfferingUserId(tradeData[0].offering_user_id);
+    setDeleteItems(deleteItems);
+  };
+
+  const removeCardsFromTrade = async (postIds) => {
+    try {
+      console.log("Post ID to be removed:", postIds);
+      console.log("Trade URL:", getTradeURL);
+      await axios.delete(getTradeURL, {
+        data: {
+          postids: postIds,
+        },
+      });
+      setisDeleteCardsModalOpen(!isDeleteCardsModalOpen);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error when removing requester cards from trade", error);
+    }
+    setisDeleteCardsModalOpen(false);
+  };
+
+  const goToTradeReceiverListing = () => {
+    navigate(`/collection/${tradeData[0].receiving_user_id}/listing/${tradeData[0].card_post_id}`);
+  };
+
+  const goToTradeOffererListing = (user_card_id) => {
+    navigate(`/collection/${tradeData[0].offering_user_id}/listing/${user_card_id}`);
+  };
+
+  console.log(offererTradeData)
 
   return (
     <div className="trade-page">
-      <h1 className="trade-page__page-header">
-        Placeholder Heading For the Page
-      </h1>
-      <div className="trade-page__trades-arena">
-        <div className="trade-page__user--receiver">
-          <h2 className="trade-page__subheader">
-            {tradeData.length > 0 &&
-              `${tradeData[0].receiving_username}'s Cards in the Trade (the receiver)`}
+      <h1 className="trade-page__page-header">The Trade Arena</h1>
+      <div className="trade-arena">
+        <div className="receiver">
+          <h2 className="requestor__subheader">THE RECEIVER</h2>
+          <h2 className="receiver__name">
+            {tradeData.length > 0 && `${tradeData[0].receiving_username}`}
           </h2>
-          <p>
-            Trade Value: <span>Placeholder for trade value of card(s)</span>
+          <p className="receiver__tradevalue">
+            Trade Value: <span></span>
           </p>
-          <div className="trade-page__top-list">
+          <div className="receiver__cards">
             {receiverTradeData &&
               receiverTradeData.map((receive, index) => (
                 <PokemonCard
                   key={index}
                   image={receive.front_image_url}
                   cardname={receive.name}
-                  setname={receive.setname}
+                  setname={receive.set}
                   condition={receive.condition}
+                  onclick={() => goToTradeReceiverListing()}
                 />
               ))}
           </div>
         </div>
-        <div className="trade-page__center">
-          <div className="trade-page__pokeball"></div>
+        <div className="trade-arena__center">
+          <div className="trade-arena__pokeball"></div>
         </div>
-        <div className="trade-page__user--offerer">
-          <h2 className="trade-page__subheader">
-            {tradeData.length > 0 &&
-              `${tradeData[0].offering_username}'s Cards in the Trade (the requester)`}
-          </h2>
-          <p>
-            Trade Value: <span>Placeholder for trade value of card(s)</span>
+        <div className="requestor">
+          {/* <TradeArenaCardContainer data={offererTradeData} onclick={() => goToTradeOffererListing()} /> */}
+          <div className="requestor__cards">
+          {/* {!offererTradeData ? (<p>No cards added for the trade</p>) : (
+              offererTradeData.map((offerer, index) => (
+                <PokemonCard
+                  key={index}
+                  image={offerer.front_image_url}
+                  cardname={offerer.name}
+                  setname={offerer.set}
+                  condition={offerer.condition}
+                  onclick={() => goToTradeOffererListing(offerer.user_card_id)}
+                />
+              )))} */}
+            {offererTradeData &&
+              offererTradeData.map((offerer, index) => (
+                <PokemonCard
+                  key={index}
+                  image={offerer.front_image_url}
+                  cardname={offerer.name}
+                  setname={offerer.set}
+                  condition={offerer.condition}
+                  onclick={() => goToTradeOffererListing(offerer.user_card_id)}
+                />
+              ))}
+          </div>
+          <p className="requestor__tradevalue">
+            Trade Value: <span></span>
           </p>
-          <div className="trade-page__bottom-list">
-          {offererTradeData &&
-            offererTradeData.map((offer, index) => (
-              <PokemonCard
-                key={index}
-                image={offer.front_image_url}
-                cardname={offer.name}
-                setname={offer.setname}
-                condition={offer.condition}
-              />
-            ))}</div>
-          <p>See User B's collection to add to the trade</p>
-          <button onClick={() => togglePickCardsModal(offeringUserId)}>
-            Show
-          </button>
+          <div className="requestor__information">
+            <p className="requestor__collection-header">
+              See User B's collection to add to the trade
+            </p>
+            <button
+              className="requestor__collection-button"
+              onClick={() => togglePickCardsModal(offeringUserId)}
+            >
+              Add Cards
+            </button>
+            <button
+              className="requestor__collection-button"
+              onClick={() => togglePickCardsModalDelete(offeringUserId)}
+            >
+              Remove Cards
+            </button>
+          </div>
+          <h2 className="requestor__name">
+            {tradeData.length > 0 && `${tradeData[0].offering_username}`}
+          </h2>
+          <h2 className="requestor__subheader">THE REQUESTOR</h2>
         </div>
       </div>
       <CollectionModal
-        isOpen={isPickCardsModalOpen}
+        isAddOpen={isPickCardsModalOpen}
         offering_user_id={offeringUserId}
         toggleModal={togglePickCardsModal}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
         handleAction={addCardsToTrade}
         data={selectedItems}
-        title="Select cards you want for the trade."
+        tradeid={tradeid}
+        title="Add cards to the trade."
         body={
           tradeData.length > 0 &&
-          `Select the cards from ${tradeData[0].offering_username}'s collection that you want for the trade.`
+          `Select the cards from ${tradeData[0].offering_username}'s collection that should be added to the trade.`
         }
         action="Add to Trade"
+      />
+      <CollectionModal
+        isDeleteOpen={isDeleteCardsModalOpen}
+        offering_user_id={offeringUserId}
+        toggleModal={togglePickCardsModalDelete}
+        selectedItems={deleteItems}
+        setDeleteItems={setDeleteItems}
+        handleActionDelete={removeCardsFromTrade}
+        data={deleteItems}
+        tradeid={tradeid}
+        title="Remove cards from the trade."
+        body={
+          tradeData.length > 0 &&
+          `Select cards from ${tradeData[0].offering_username}'s collection that should be remove from the trade.`
+        }
+        action="Remove from Trade"
       />
     </div>
   );
