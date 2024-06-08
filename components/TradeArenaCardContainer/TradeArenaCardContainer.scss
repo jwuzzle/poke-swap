@@ -1,0 +1,23 @@
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
+.carousel {
+
+    width: 200px;
+   margin-top: 16px;
+
+   @media only screen and (min-width: $tablet-breakpoint) {
+    width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+   }
+
+
+    &__preview {
+   
+    }
+
+}
