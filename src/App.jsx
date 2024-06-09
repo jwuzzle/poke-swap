@@ -15,6 +15,7 @@ import OtherUsersCardCollectionPage from "../pages/OtherUsersCardCollectionPage/
 import EditCardPostPage from "../pages/EditCardPostPage/EditCardPostPage";
 import TradesHomePage from "../pages/TradesHomePage/TradesHomePage";
 import TradePage from "../pages/TradePage/TradePage";
+import AllSetsList from "../components/AllSetsList/AllSetsList";
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/collection/:userid/listing/:postid/edit" element={<EditCardPostPage />} />
         <Route path="/trades" element={<TradesHomePage />} />
         <Route path="/trades/:tradeid" element={<TradePage />} />
+        <Route path="/setlist" element={<AllSetsList />} />
 
         </Routes>
       </BrowserRouter>

@@ -4,34 +4,58 @@
 @use "../styles/partials/mixins" as *;
 @use "../styles/partials/typography" as *;
 
+
+@use "../styles/partials/global";
+
+@use "../styles/partials/variables" as *;
+@use "../styles/partials/mixins" as *;
+@use "../styles/partials/typography" as *;
+
 .search {
 
-    height: 75vh;
-        width: 100%;
-        height: 100%;
+    /* height: 75vh; */
+        /* width: 100%;
+        height: 100%; */
         position: relative;
         border-top: 2px solid $vanillacream;
-        box-shadow: 0 0 0 2px #000;
-        background-color: $mysticblue;
+        /* box-shadow: 0 0 0 2px #000; */
+        /* background-color: $mysticblue; */
         /* animation: borderAnimation 4s linear infinite; */
 
 
     &__box {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        /* justify-content: center; */
         align-items: center;
         height: 100vh;
+        position: relative;
+        top: 40px;
+    }
+
+    &__header {
+        color: $white;
+        @include page-header-mobile;
+        margin-top: 16px;
+    }
+
+    &__subheader {
+        color: $white;
+        @include subheader-mobile;
+        margin-top: 8px;
     }
 
     &__form {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        margin-top: 16px;
     }
 
     &__bar {
         margin-bottom: 16px;
-        padding: 16px;
-        width: 400px;
+        padding: 8px;
+        width: 100%;
     }
 
     &__button {
@@ -50,11 +74,44 @@
     @media only screen and (min-width: $tablet-breakpoint) {
         overflow: hidden;
         box-sizing: border-box;
+        width: 100%;
+        height: 400px;
+        position: relative;
+        border-top: 2px solid $vanillacream;
+        box-shadow: 0 0 0 2px #000;
+        background-color: $mysticblue;
+        /* animation: borderAnimation 4s linear infinite; */
 
         &__box {
+            display: flex;
+            align-items: center;
+            height: 100vh;
             position: relative;
             flex-direction: column;
-
+        }
+    
+        &__form {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        &__bar {
+            margin-bottom: 16px;
+            padding: 16px;
+            width: 400px;
+        }
+    
+        &__button {
+            color: $deepoceanic;
+            background-color: $vanillacream;
+            border-radius: 5px;
+            border: none;
+            @include labels-buttons;
+            padding: 8px;
+        }
+    
+        &__loading {
+            color: $mysticblue;
         }
 
         &__header {
@@ -103,9 +160,15 @@ position: absolute;
 display: flex;
 flex-wrap: wrap;
 background-color: $mysticblue;
+overflow: hidden;
+width: 100%;
+height: 300px;
 
 &__bottom {
     position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 300px;
 }
 
 &__overlay {
@@ -113,15 +176,29 @@ background-color: $mysticblue;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 300px;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (min-width: $tablet-breakpoint) {
+height: 400px;
+
+&__bottom {
+    height: 400px;
+}
+
+&__overlay {
+    height: 400px;
+}
+
+
 }
 
 
 }
 
 .search-image {
-    /* width: 300px; */
+    width: 100px;
 }
 
 
@@ -301,3 +378,302 @@ background-color: $mysticblue;
 }
 
 }
+
+
+/* .search {
+
+    height: 75vh;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border-top: 2px solid $vanillacream;
+        box-shadow: 0 0 0 2px #000;
+        background-color: $mysticblue; */
+        /* animation: borderAnimation 4s linear infinite; */
+
+/* 
+    &__box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__bar {
+        margin-bottom: 16px;
+        padding: 16px;
+        width: 400px;
+    }
+
+    &__button {
+        color: $deepoceanic;
+        background-color: $vanillacream;
+        border-radius: 5px;
+        border: none;
+        @include labels-buttons;
+        padding: 8px;
+    }
+
+    &__loading {
+        color: $mysticblue;
+    }
+
+    @media only screen and (min-width: $tablet-breakpoint) {
+        overflow: hidden;
+        box-sizing: border-box;
+
+        &__box {
+            position: relative;
+            flex-direction: column;
+
+        }
+
+        &__header {
+            color: $white;
+        }
+
+        &__subheader {
+            color: $white;
+        }
+    }
+
+    @media only screen and (min-width: $desktop-breakpoint) {
+    }
+} */
+
+/* @keyframes borderAnimation {
+    0% {
+        border-color: red;
+        box-shadow: 0 0 0 2px red;
+    }
+
+    25% {
+        border-color: green;
+        box-shadow: 0 0 0 2px green;
+    }
+
+    50% {
+        border-color: blue;
+        box-shadow: 0 0 0 2px blue;
+    }
+
+    75% {
+        border-color: yellow;
+        box-shadow: 0 0 0 2px yellow;
+    }
+
+    100% {
+        border-color: purple;
+        box-shadow: 0 0 0 2px purple;
+    }
+} */
+
+
+/* .search-image-container {
+position: absolute;
+display: flex;
+flex-wrap: wrap;
+background-color: $mysticblue;
+
+&__bottom {
+    position: absolute;
+}
+
+&__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+}
+
+.search-image {
+    /* width: 300px; 
+}
+
+
+
+.pos {
+
+&__index-0 {
+    transform: rotate(45deg);
+    overflow: hidden;
+    flex-grow: 1;
+    position: absolute;
+
+    &--2 {
+        transform: rotate(-15deg);
+    }
+}
+
+&__index-1 {
+    transform: rotate(-25deg);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(15deg);
+    }
+}
+
+&__index-2 {
+    transform: rotate(-65deg);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(35deg);
+    }
+}
+
+&__index-3 {
+    transform: rotate(-15deg);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(-15deg);
+    }
+}
+
+&__index-4 {
+    transform: rotate(-15deg);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(-45deg);
+    }
+}
+
+&__index-5 {
+    transform: rotate(15deg);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(-45deg);
+    }
+}
+
+&__index-6 {
+    transform: rotate(-10deg) translate(0, -30px);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(-15deg) translate(50px, -30px);
+    }
+}
+
+&__index-7 {
+    transform: rotate(15deg);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(-85deg);
+    }
+}
+
+&__index-8 {
+    transform: rotate(-15deg);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(45deg);
+    }
+}
+&__index-9 {
+    transform: rotate(-15deg) translate(80px, -03px);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(-45deg);
+    }
+}
+
+&__index-10 {
+    transform: rotate(45deg) translate(40px, -40px);
+    flex-grow: 1;
+
+    &--2 {
+        transform: rotate(-45deg);
+    }
+}
+
+&__index-11 {
+    transform: rotate(25deg);
+    flex-grow: 1;
+}
+
+&__index-12 {
+    transform: rotate(-15deg);
+    flex-grow: 1;
+}
+&__index-13 {
+    transform: rotate(15deg);
+    flex-grow: 1;
+}
+&__index-14 {
+    transform: rotate(25deg);
+    flex-grow: 1;
+}
+
+&__index-15 {
+    transform: rotate(-25deg);
+    flex-grow: 1;
+}
+
+&__index-16 {
+    transform: rotate(15deg);
+    flex-grow: 1;
+}
+
+&__index-17 {
+    transform: rotate(-15deg);
+    flex-grow: 1;
+}
+&__index-18 {
+    transform: rotate(15deg);
+    flex-grow: 1;
+}
+&__index-19 {
+    transform: rotate(25deg);
+    flex-grow: 1;
+}
+
+&__index-20 {
+    transform: rotate(-25deg);
+    flex-grow: 1;
+}
+
+&__index-21 {
+    transform: rotate(95deg);
+    flex-grow: 1;
+}
+
+&__index-22 {
+    transform: rotate(15deg);
+    flex-grow: 1;
+}
+&__23 {
+    transform: rotate(-25deg);
+    flex-grow: 1;
+}
+&__24 {
+    transform: rotate(15deg);
+    flex-grow: 1;
+}
+&__25 {
+    transform: rotate(25deg);
+    flex-grow: 1;
+}
+&__26 {
+    transform: rotate(25deg);
+    flex-grow: 1;
+}
+
+} */
